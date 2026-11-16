@@ -9,3 +9,7 @@ buildlog.txt
 .vscode
 .idea
 .cursor
+
+public/videos/*.mp4
+public/videos/thumbnails/
+
