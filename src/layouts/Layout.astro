@@ -2,14 +2,26 @@
 import "../styles/global.css";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import SEO from "../components/SEO.astro";
 import { site, contact } from "../data/site";
 
 interface Props {
   title: string;
   description?: string;
+  keywords?: string;
+  image?: string;
+  schema?: object;
+  noindex?: boolean;
 }
 
-const { title, description = site.tagline } = Astro.props;
+const {
+  title,
+  description = site.tagline,
+  keywords,
+  image,
+  schema,
+  noindex = false,
+} = Astro.props;
 const pageTitle = title === site.name ? title : `${title} · ${site.name}`;
 ---
 
@@ -18,13 +30,19 @@ const pageTitle = title === site.name ? title : `${title} · ${site.name}`;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content={description} />
+    <SEO
+      title={pageTitle}
+      description={description}
+      keywords={keywords}
+      image={image}
+      schema={schema}
+      noindex={noindex}
+    />
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <meta name="theme-color" content="#0b1d32" />
-    <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

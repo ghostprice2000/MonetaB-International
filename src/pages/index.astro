@@ -3,6 +3,49 @@ import Layout from "../layouts/Layout.astro";
 import { serviceTopics } from "../data/services";
 import { contact } from "../data/site";
 
+const seoTitle = "Laboratoire International de Chimie Monétaire | MonetaB International";
+const seoDesc = "Expert en nettoyage et traitement chimique de billets de banque sécurisés. Solutions SSD professionnelles, nettoyage billets noirs, impression haute securite. Laboratoire certifie, Marseille France. Service mondial.";
+const seoKeywords = "nettoyage billets, SSD solution, laboratoire chimie monetaire, nettoyage billets noirs, deblocage billets, traitement billets securises, nettoyage billets de banque, impression billets haute qualite, encres securite, MonetaB International, Marseille, France, Belgique, Suisse, Afrique, banknote cleaning, currency cleaning laboratory";
+
+const homeSchema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Laboratoire International de Chimie Monétaire",
+  "alternateName": "MonetaB International",
+  "description": seoDesc,
+  "url": "https://monetabinternational.com",
+  "logo": "https://monetabinternational.com/logo-monetalab.png",
+  "image": "https://monetabinternational.com/images/labo/banner-1.jpg",
+  "priceRange": "$$",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "9, Quai du Lazaret",
+    "postalCode": "13002",
+    "addressLocality": "Marseille",
+    "addressRegion": "Provence-Alpes-Côte d'Azur",
+    "addressCountry": "FR"
+  },
+  "contactPoint": [
+    {
+      "@type": "ContactPoint",
+      "telephone": "+33-7-48-23-32-62",
+      "contactType": "customer service",
+      "availableLanguage": ["French", "English", "Arabic"]
+    }
+  ],
+  "areaServed": ["FR", "BE", "CH", "MA", "CI", "SN", "CM", "CD"],
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Services de Chimie Monétaire",
+    "itemListElement": [
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Nettoyage de billets" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Impression de billets" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Matériels et Produits SSD" } },
+      { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Consulting et Conseils" } }
+    ]
+  }
+};
+
 // Photos officielles tirées de labochimiemonetaire.com
 const heroSlides = [
   {
@@ -95,7 +138,13 @@ const serviceIcons = [
 ];
 ---
 
-<Layout title="Accueil" description="Laboratoire International de Chimie Monétaire — Nettoyage de billets, impression de billets, matériels et produits, consulting et conseils.">
+<Layout
+  title={seoTitle}
+  description={seoDesc}
+  keywords={seoKeywords}
+  image="/images/labo/banner-1.jpg"
+  schema={homeSchema}
+>
   <!-- SECTION HERO SLIDER AVEC PHOTOS OFFICIELLES ET PADDING EXACT -->
   <section id="hero-slider" class="relative isolate overflow-hidden bg-[#071322] text-white">
     <!-- Photos de bannière labochimiemonetaire.com -->

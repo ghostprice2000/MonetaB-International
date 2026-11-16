@@ -1,0 +1,90 @@
+---
+// Composant SEO réutilisable — MonetaB International
+// Intègre : meta tags, Open Graph, Twitter Card, Schema.org
+
+interface Props {
+  title: string;
+  description: string;
+  keywords?: string;
+  image?: string;
+  type?: "website" | "article";
+  canonical?: string;
+  noindex?: boolean;
+  schema?: object;
+}
+
+const {
+  title,
+  description,
+  keywords = "nettoyage billets, SSD solution, laboratoire chimie monétaire, nettoyage billets de banque, déblocage billets, traitement billets sécurisés, encres de sécurité, impression billets, MonetaB International",
+  image = "/images/labo/banner-1.jpg",
+  type = "website",
+  canonical,
+  noindex = false,
+  schema,
+} = Astro.props;
+
+const siteUrl = Astro.site ?? new URL("https://monetabinternational.com");
+const canonicalUrl = canonical
+  ? new URL(canonical, siteUrl)
+  : new URL(Astro.url.pathname, siteUrl);
+const imageUrl = new URL(image, siteUrl);
+
+// Schema.org par défaut — Organisation
+const defaultSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Laboratoire International de Chimie Monétaire",
+  "alternateName": "MonetaB International",
+  "url": siteUrl.href,
+  "logo": new URL("/logo-monetalab.png", siteUrl).href,
+  "description": "Laboratoire international spécialisé dans le nettoyage et traitement chimique de billets de banque sécurisés de toutes devises.",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "9, Quai du Lazaret",
+    "postalCode": "13002",
+    "addressLocality": "Marseille",
+    "addressCountry": "FR"
+  },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+33-7-48-23-32-62",
+    "contactType": "customer service",
+    "availableLanguage": ["French", "English"]
+  },
+  "sameAs": [
+    "https://github.com/ghostprice2000/MonetaB-International"
+  ]
+};
+
+const schemaData = schema ?? defaultSchema;
+---
+
+<!-- SEO Primaire -->
+<meta name="description" content={description} />
+<meta name="keywords" content={keywords} />
+<meta name="robots" content={noindex ? "noindex,nofollow" : "index,follow"} />
+<meta name="language" content="fr" />
+<meta name="author" content="Laboratoire International de Chimie Monétaire" />
+<meta name="geo.region" content="FR-13" />
+<meta name="geo.placename" content="Marseille" />
+<link rel="canonical" href={canonicalUrl.href} />
+
+<!-- Open Graph (Facebook, WhatsApp, LinkedIn) -->
+<meta property="og:type" content={type} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={imageUrl.href} />
+<meta property="og:url" content={canonicalUrl.href} />
+<meta property="og:site_name" content="MonetaB International" />
+<meta property="og:locale" content="fr_FR" />
+<meta property="og:locale:alternate" content="en_US" />
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={imageUrl.href} />
+
+<!-- Schema.org JSON-LD -->
+<script type="application/ld+json" set:html={JSON.stringify(schemaData)} />

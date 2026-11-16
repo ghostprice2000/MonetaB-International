@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Bloquer les dossiers internes
+Disallow: /api/
+Disallow: /_astro/
+
+# Sitemap
+Sitemap: https://monetabinternational.com/sitemap-index.xml
