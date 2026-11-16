@@ -1,0 +1,791 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { serviceTopics } from "../data/services";
+import { contact } from "../data/site";
+
+// Photos officielles tirées de labochimiemonetaire.com
+const heroSlides = [
+  {
+    image: "/images/labo/banner-1.jpg",
+    kicker: "Laboratoire International",
+    title: "Prestations de qualité et sur mesure",
+    description: "Nous proposons à nos clients des solutions innovantes aux problématiques des détenteurs de billets sécurisés ou marqués de tous types et de toutes devises aux prix les plus compétitifs.",
+    cta: "En savoir plus",
+    href: "/a-propos",
+  },
+  {
+    image: "/images/labo/banner-2.jpg",
+    kicker: "Innovation & Performance",
+    title: "L'innovation au cœur de nos prestations",
+    description: "Que vous soyez professionnel ou particulier et quel que soit votre secteur d'activité, nous vous fournissons les meilleurs produits et services au meilleur rapport qualité/prix.",
+    cta: "Nos prestations",
+    href: "/services",
+  },
+  {
+    image: "/images/labo/banner-3.jpg",
+    kicker: "Laboratoire Monétaire",
+    title: "Laboratoire Monétaire de Référence",
+    description: "Notre expertise dans le traitement chimique des billets de banque nous permet de vous fournir des solutions efficaces pour réhabiliter vos billets de banque sécurisés.",
+    cta: "Demandez un devis",
+    href: "/contact",
+  },
+];
+
+const stats = [
+  { target: 15, suffix: "+", value: "15+", label: "Années d'expérience", desc: "Expertise reconnue en Europe et à l'international" },
+  { target: 100, suffix: "%", value: "100%", label: "Satisfaction client", desc: "Suivi personnalisé et rigueur d'intervention" },
+  { target: 50, suffix: "k+", value: "50k+", label: "Billets traités", desc: "Toutes devises : EUR, USD, GBP, devises sécurisées" },
+  { target: 24, suffix: "/48h", value: "24/48h", label: "Réactivité garantie", desc: "Devis rapide et accompagnement continu" },
+];
+
+// Galerie complète de 12 photos du laboratoire pour le défilement automatique continu
+const labPhotos = [
+  { src: "/images/labo/service/slide-01.jpg", title: "Traitement chimique haute précision" },
+  { src: "/images/labo/service/slide-02.jpg", title: "Billets sécurisés & réhabilitation" },
+  { src: "/images/labo/service/slide-03.jpg", title: "Équipements de nettoyage professionnel" },
+  { src: "/images/labo/service/slide-04.jpg", title: "Sécurité & intégrité fiduciaire" },
+  { src: "/images/labo/service/slide-05.jpg", title: "Laboratoire de chimie monétaire" },
+  { src: "/images/labo/service/slide-06.jpg", title: "Produits et solutions SSD certifiées" },
+  { src: "/images/labo/service/slide-07.jpg", title: "Expertise fiduciaire internationale" },
+  { src: "/images/labo/service/slide-08.jpg", title: "Machines automatiques de décapage" },
+  { src: "/images/labo/service/slide-09.jpg", title: "Diagnostic et spectrométrie de billets" },
+  { src: "/images/labo/service/slide-10.jpg", title: "Consulting & assistance technique" },
+  { src: "/images/labo/about-1.jpg", title: "Équipe & laboratoire certifié" },
+  { src: "/images/labo/about-2.jpg", title: "Installations de recherche et d'analyse" },
+];
+
+// Les 4 cartes de Démarche Qualité avec icônes SVG fines et design haut de gamme
+const qualityCommitments = [
+  {
+    number: "01",
+    title: "Fiabilité & Rigueur",
+    desc: "Des solutions techniques éprouvées et des protocoles scientifiques maîtrisés.",
+    iconSvg: `<svg class="h-6 w-6 text-[#c99119]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>`,
+    badge: "Contrôle Certifié",
+  },
+  {
+    number: "02",
+    title: "Réactivité & Écoute",
+    desc: "Une réponse rapide, sur-mesure et adaptée aux spécificités de chaque dossier.",
+    iconSvg: `<svg class="h-6 w-6 text-[#5876c9]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>`,
+    badge: "Sous 24/48h",
+  },
+  {
+    number: "03",
+    title: "Qualité de Service",
+    desc: "Des matériels de pointe et des produits chimiques certifiés haute performance.",
+    iconSvg: `<svg class="h-6 w-6 text-[#c99119]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`,
+    badge: "Matériels de Pointe",
+  },
+  {
+    number: "04",
+    title: "Suivi Client & Discrétion",
+    desc: "Un accompagnement confidentiel du diagnostic initial jusqu'à la finalisation.",
+    iconSvg: `<svg class="h-6 w-6 text-[#5876c9]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>`,
+    badge: "Confidentialité Totale",
+  },
+];
+
+// Icônes SVG pour les cartes de service
+const serviceIcons = [
+  `<svg class="h-7 w-7 text-[#5876c9]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  `<svg class="h-7 w-7 text-[#5876c9]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>`,
+  `<svg class="h-7 w-7 text-[#5876c9]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>`,
+  `<svg class="h-7 w-7 text-[#5876c9]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
+];
+---
+
+<Layout title="Accueil" description="Laboratoire International de Chimie Monétaire — Nettoyage de billets, impression de billets, matériels et produits, consulting et conseils.">
+  <!-- SECTION HERO SLIDER AVEC PHOTOS OFFICIELLES ET PADDING EXACT -->
+  <section id="hero-slider" class="relative isolate overflow-hidden bg-[#071322] text-white">
+    <!-- Photos de bannière labochimiemonetaire.com -->
+    <div class="absolute inset-0" aria-hidden="true">
+      {heroSlides.map((slide, index) => (
+        <div
+          data-hero-background
+          data-kicker={slide.kicker}
+          data-title={slide.title}
+          data-description={slide.description}
+          data-cta={slide.cta}
+          data-href={slide.href}
+          class:list={[
+            "hero-bg-slide absolute inset-0 bg-cover bg-center transition-all duration-1000",
+            index === 0 ? "opacity-100 scale-100 kenburns-zoom" : "opacity-0 scale-105"
+          ]}
+          style={`background-image: url('${slide.image}')`}
+        ></div>
+      ))}
+    </div>
+
+    <!-- Superposition Dégradée douce pour laisser voir les photos nettement -->
+    <div class="absolute inset-0 bg-[linear-gradient(90deg,rgba(7,19,34,0.92)_0%,rgba(7,19,34,0.76)_52%,rgba(7,19,34,0.22)_100%)]" aria-hidden="true"></div>
+
+    <!-- Padding-top et justify-start calculés pour ne jamais être masqué sous le header -->
+    <div class="relative mx-auto flex min-h-[700px] max-w-[1400px] flex-col justify-start px-5 pb-20 pt-[190px] sm:min-h-[760px] sm:pt-[230px] lg:min-h-[840px] lg:px-8 lg:pb-28 lg:pt-[315px] xl:pt-[335px]">
+      <div id="hero-text-block" class="max-w-3xl transition-all duration-500">
+        <div class="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-[#f2d38c] backdrop-blur-md">
+          <span class="h-2 w-2 rounded-full bg-[#f2d38c] pulse-dot"></span>
+          <span id="hero-kicker">{heroSlides[0].kicker}</span>
+        </div>
+
+        <h1 id="hero-title" class="mt-5 text-3xl font-extrabold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl drop-shadow-lg" aria-live="polite">
+          {heroSlides[0].title}
+        </h1>
+
+        <p id="hero-description" class="mt-6 max-w-2xl text-base leading-relaxed text-white/90 sm:text-lg lg:text-xl">
+          {heroSlides[0].description}
+        </p>
+
+        <div class="mt-8 flex flex-wrap items-center gap-4">
+          <a
+            id="hero-cta"
+            href={heroSlides[0].href}
+            class="action-button shimmer-card group inline-flex min-h-[52px] items-center gap-2 rounded-lg bg-gradient-to-r from-[#c99119] via-[#dfa938] to-[#c99119] px-7 py-3 text-sm font-bold text-white shadow-xl shadow-[#c99119]/25 hover:shadow-[#c99119]/40"
+          >
+            <span id="hero-cta-text">{heroSlides[0].cta}</span>
+            <span class="transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true">→</span>
+          </a>
+
+          <a
+            href={contact.whatsappHref}
+            target="_blank"
+            rel="noreferrer"
+            class="action-button shimmer-card inline-flex min-h-[52px] items-center gap-2 rounded-lg border border-white/30 bg-white/10 px-6 py-3 text-sm font-semibold text-white backdrop-blur-md hover:bg-white/20"
+          >
+            <svg class="h-5 w-5 text-emerald-400" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12.04 2a9.9 9.9 0 0 0-8.55 14.9L2.2 22l5.27-1.38A9.9 9.9 0 1 0 12.04 2Zm0 17.98a8.04 8.04 0 0 1-4.1-1.13l-.3-.18-3.13.82.84-3.05-.2-.32a8.06 8.06 0 1 1 6.89 3.86Zm4.42-6.04c-.24-.12-1.42-.7-1.64-.78-.22-.08-.38-.12-.54.12-.16.24-.62.78-.76.94-.14.16-.28.18-.52.06-.24-.12-1.02-.38-1.94-1.2-.72-.64-1.2-1.43-1.34-1.67-.14-.24-.02-.37.1-.49.1-.1.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.3-.74-1.78-.2-.47-.4-.4-.54-.4h-.46c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.68 2.56 4.06 3.58.57.25 1.02.4 1.37.5.58.18 1.1.15 1.52.09.46-.07 1.42-.58 1.62-1.14.2-.56.2-1.04.14-1.14-.06-.1-.22-.16-.46-.28Z"/>
+            </svg>
+            <span>Assistance WhatsApp</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Barre de progression automatique du diaporama -->
+      <div class="mt-10 max-w-md">
+        <div class="flex items-center justify-between text-[11px] font-semibold tracking-wider text-white/60 mb-1.5 uppercase">
+          <span>Défilement automatique</span>
+          <span class="text-[#f2d38c]">Diapo active</span>
+        </div>
+        <div class="h-1 w-full overflow-hidden rounded-full bg-white/15">
+          <div id="hero-progress-bar" class="h-full w-0 bg-gradient-to-r from-[#c99119] via-[#f2d38c] to-[#c99119]"></div>
+        </div>
+      </div>
+
+      <div class="mt-6 flex flex-wrap items-center justify-between gap-4 border-t border-white/15 pt-6 sm:mt-8">
+        <div id="hero-dots" class="flex items-center gap-2">
+          {heroSlides.map((_, i) => (
+            <button
+              type="button"
+              data-slide-index={i}
+              class:list={[
+                "h-2.5 rounded-full transition-all duration-300",
+                i === 0 ? "w-8 bg-[#c99119]" : "w-2.5 bg-white/40 hover:bg-white/70"
+              ]}
+              aria-label={`Diapositive ${i + 1}`}
+            ></button>
+          ))}
+        </div>
+
+        <div class="flex items-center gap-3">
+          <span id="hero-slide-count" class="text-xs font-bold tracking-wider text-white/70">
+            01 / {String(heroSlides.length).padStart(2, "0")}
+          </span>
+          <div class="flex gap-1.5">
+            <button
+              id="hero-prev"
+              type="button"
+              aria-label="Diapositive précédente"
+              class="flex h-10 w-10 items-center justify-center rounded-full border border-white/30 bg-white/10 text-white transition hover:bg-[#c99119] hover:border-[#c99119] active:scale-95"
+            >
+              ←
+            </button>
+            <button
+              id="hero-next"
+              type="button"
+              aria-label="Diapositive suivante"
+              class="flex h-10 w-10 items-center justify-center rounded-full border border-white/30 bg-white/10 text-white transition hover:bg-[#c99119] hover:border-[#c99119] active:scale-95"
+            >
+              →
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION ACCÈS RAPIDES SANS EMOJI -->
+  <section class="relative z-20 mx-auto -mt-10 max-w-[1400px] px-5 lg:-mt-14 lg:px-8" aria-label="Accès rapides">
+    <div class="grid gap-4 sm:grid-cols-3">
+      <a href="/services/nettoyage-billets" class="card-hover-effect group flex items-center gap-4 rounded-xl border border-[#e2e8f0] bg-white p-5 shadow-xl transition-all">
+        <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600 transition-colors group-hover:bg-blue-600 group-hover:text-white">
+          <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <path d="m9 12 2 2 4-4"/>
+          </svg>
+        </div>
+        <div class="min-w-0 flex-1">
+          <span class="text-xs font-bold uppercase tracking-wider text-blue-600">Traitement Chimique</span>
+          <h2 class="text-base font-bold text-[#0b1727] truncate">Nettoyage de Billets</h2>
+          <p class="text-xs text-[#64748b]">Billets sécurisés & marqués</p>
+        </div>
+        <span class="text-xl text-blue-600 transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true">→</span>
+      </a>
+
+      <a href="/services/materiels-produits" class="card-hover-effect group flex items-center gap-4 rounded-xl border border-[#e2e8f0] bg-white p-5 shadow-xl transition-all">
+        <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-amber-50 text-amber-600 transition-colors group-hover:bg-[#c99119] group-hover:text-white">
+          <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+            <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+            <line x1="12" y1="22.08" x2="12" y2="12"/>
+          </svg>
+        </div>
+        <div class="min-w-0 flex-1">
+          <span class="text-xs font-bold uppercase tracking-wider text-amber-600">Chimie & Équipements</span>
+          <h2 class="text-base font-bold text-[#0b1727] truncate">Matériels et Produits</h2>
+          <p class="text-xs text-[#64748b]">SSD Solution & machines auto</p>
+        </div>
+        <span class="text-xl text-amber-600 transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true">→</span>
+      </a>
+
+      <a href="/services/consulting-conseils" class="card-hover-effect group flex items-center gap-4 rounded-xl border border-[#e2e8f0] bg-white p-5 shadow-xl transition-all">
+        <div class="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600 transition-colors group-hover:bg-emerald-600 group-hover:text-white">
+          <svg class="h-7 w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+        </div>
+        <div class="min-w-0 flex-1">
+          <span class="text-xs font-bold uppercase tracking-wider text-emerald-600">Assistance Technique</span>
+          <h2 class="text-base font-bold text-[#0b1727] truncate">Consulting | Conseils</h2>
+          <p class="text-xs text-[#64748b]">Expertise & formation</p>
+        </div>
+        <span class="text-xl text-emerald-600 transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true">→</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- SECTION CHIFFRES CLÉS AVEC COMPTEUR ANIMÉ -->
+  <section class="reveal mx-auto mt-16 max-w-[1400px] px-5 lg:px-8">
+    <div class="rounded-2xl bg-gradient-to-br from-[#0b1d32] to-[#173b5b] p-8 text-white shadow-2xl lg:p-12 border border-white/10">
+      <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        {stats.map((stat, idx) => (
+          <div class={`text-center lg:text-left border-b border-white/10 pb-6 sm:border-b-0 sm:pb-0 ${idx < 3 ? 'lg:border-r lg:border-white/10 lg:pr-8' : ''}`}>
+            <p
+              class="gold-gradient-text text-4xl font-extrabold sm:text-5xl"
+              data-stat-counter
+              data-target={stat.target}
+              data-suffix={stat.suffix}
+            >
+              {stat.value}
+            </p>
+            <h3 class="mt-2 text-lg font-bold text-white">{stat.label}</h3>
+            <p class="mt-1 text-xs text-white/75">{stat.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- BANDEAU DÉFILANT CONTINU AUTOMATIQUE DE TOUTES LES PHOTOS DU LABORATOIRE -->
+  <section class="reveal relative overflow-hidden bg-[#071322] py-14 border-y border-white/10 mt-14" aria-label="Galerie défilante du laboratoire">
+    <div class="mx-auto max-w-[1400px] px-5 mb-8 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+      <div>
+        <div class="inline-flex items-center gap-2 rounded-full border border-[#f2d38c]/30 bg-white/5 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-[#f2d38c]">
+          <span class="h-1.5 w-1.5 rounded-full bg-[#f2d38c] pulse-dot"></span>
+          Défilement Automatique Continu &bull; Équipements & Prestations
+        </div>
+        <h2 class="mt-3 text-2xl font-extrabold text-white sm:text-3xl">
+          Le Laboratoire et Ses Interventions en Défilement
+        </h2>
+        <p class="mt-1 text-xs text-white/60">
+          Survolez la galerie avec la souris pour figer l'image. Cliquez pour explorer en grand format.
+        </p>
+      </div>
+      <a
+        href="/multimedia"
+        class="action-button shimmer-card inline-flex shrink-0 items-center gap-2 rounded-lg bg-gradient-to-r from-[#c99119] to-[#dfa938] px-5 py-2.5 text-xs font-bold text-white shadow-lg shadow-[#c99119]/25 hover:shadow-[#c99119]/40"
+      >
+        <span>Accéder à la Médiathèque</span>
+        <span aria-hidden="true">→</span>
+      </a>
+    </div>
+
+    <!-- Piste de défilement horizontal infini fluide (CSS Marquee) -->
+    <div class="marquee-container">
+      <div class="marquee-track flex gap-5 py-3">
+        {/* Double la liste pour l'effet de boucle infinie sans interruption */}
+        {[...labPhotos, ...labPhotos].map((item, idx) => (
+          <a
+            href="/multimedia"
+            class="group relative h-60 w-80 shrink-0 overflow-hidden rounded-2xl border border-white/15 bg-white/5 shadow-2xl transition-all duration-300 hover:scale-[1.03] hover:border-[#c99119]"
+          >
+            <img
+              src={item.src}
+              alt={item.title}
+              class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+              loading="lazy"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-[#071322] via-[#071322]/25 to-transparent opacity-75 group-hover:opacity-90 transition-opacity"></div>
+            <div class="absolute inset-x-0 bottom-0 p-4">
+              <span class="inline-block rounded-md bg-[#c99119]/90 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white backdrop-blur-sm">
+                Photo {String((idx % labPhotos.length) + 1).padStart(2, '0')}
+              </span>
+              <p class="mt-1.5 text-xs font-bold text-white line-clamp-1">{item.title}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION À PROPOS DU LABORATOIRE (Photo officielle about-1.jpg) -->
+  <section class="reveal mx-auto max-w-[1400px] px-5 py-20 lg:px-8 lg:py-28" aria-labelledby="home-about-title">
+    <div class="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+      <div class="relative">
+        <div class="overflow-hidden rounded-2xl shadow-2xl border border-slate-200">
+          <img
+            src="/images/labo/about-1.jpg"
+            alt="Laboratoire International de Chimie Monétaire - À Propos"
+            class="h-[400px] w-full object-cover transition-transform duration-700 hover:scale-105 sm:h-[460px]"
+            loading="lazy"
+          />
+        </div>
+
+        <div class="absolute -bottom-6 -right-4 rounded-xl border border-white/40 bg-white/95 p-5 shadow-2xl backdrop-blur-md sm:bottom-6 sm:right-6 max-w-[290px]">
+          <div class="flex items-center gap-3">
+            <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#0b1d32] text-xl font-bold text-[#c99119]">
+              LICM
+            </span>
+            <div>
+              <p class="text-sm font-bold text-[#0b1727]">Chimie Monétaire</p>
+              <p class="text-xs text-emerald-600 font-semibold flex items-center gap-1 mt-0.5">
+                <span class="h-2 w-2 rounded-full bg-emerald-500"></span>
+                Laboratoire de référence
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="inline-flex items-center gap-2 rounded-full bg-[#5876c9]/10 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-[#5876c9]">
+          À Propos du Laboratoire
+        </div>
+        <h2 id="home-about-title" class="mt-4 text-3xl font-extrabold leading-tight text-[#0b1727] sm:text-4xl lg:text-5xl">
+          Acteur Global des Services de Traitement Chimique de Billets
+        </h2>
+        <p class="mt-5 text-base leading-relaxed text-[#475569] sm:text-lg">
+          Le <strong>Laboratoire International de Chimie Monétaire</strong> est un acteur global des services de traitement chimique de billets de banque. Nous intervenons dans le nettoyage et le décapage de billets de banques sécurisés, dans l'impression de billets de banques de haute qualité, dans la location et la vente de produits et matériels de traitement de billets de banque sécurisés et dans le conseil spécialisé en chimie monétaire.
+        </p>
+        <p class="mt-4 text-base leading-relaxed text-[#475569]">
+          Nous proposons à nos clients des solutions innovantes aux problématiques des détenteurs de billets sécurisés, marqués de tous types et de toutes devises aux prix les plus compétitifs du marché.
+        </p>
+        <p class="mt-4 text-base leading-relaxed text-[#475569]">
+          Notre expérience, notre savoir-faire et nos expertises nous guident au quotidien à assurer des prestations et des produits de qualité à nos clients, qu'ils soient des particuliers, des entreprises ou des collectivités. Fiabilité, réactivité, qualité de service et suivi client sont nos engagements.
+        </p>
+
+        <div class="mt-8 flex flex-wrap items-center gap-4">
+          <a
+            href="/a-propos"
+            class="action-button inline-flex items-center gap-2 rounded-lg bg-[#0b1d32] px-6 py-3.5 text-sm font-bold text-white transition hover:bg-[#173b5b]"
+          >
+            En savoir plus
+            <span aria-hidden="true">→</span>
+          </a>
+          <a
+            href="/contact"
+            class="action-button inline-flex items-center gap-2 rounded-lg border border-[#0b1d32]/20 px-6 py-3.5 text-sm font-semibold text-[#0b1d32] hover:bg-slate-50"
+          >
+            Demander un devis
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION NOS SERVICES (Cartes avec les vraies photos de labochimiemonetaire.com) -->
+  <section id="services" class="reveal bg-[#f8fafc] py-20 lg:py-28">
+    <div class="mx-auto max-w-[1400px] px-5 lg:px-8">
+      <div class="mx-auto max-w-3xl text-center">
+        <span class="inline-flex items-center gap-2 rounded-full bg-[#c99119]/15 px-4 py-1 text-xs font-bold uppercase tracking-wider text-[#c99119]">
+          Nos Services
+        </span>
+        <h2 class="mt-4 text-3xl font-extrabold text-[#0b1727] sm:text-4xl lg:text-5xl">
+          Prestations de Chimie Monétaire
+        </h2>
+        <p class="mt-4 text-base text-[#64748b] sm:text-lg">
+          Des solutions expertes adaptées aux problématiques des détenteurs de billets sécurisés de toutes devises.
+        </p>
+      </div>
+
+      <div class="mt-14 grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+        {serviceTopics.map((service, index) => (
+          <article
+            class="service-block-card shimmer-card group relative min-h-[440px] overflow-hidden rounded-2xl p-8 shadow-lg transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl flex flex-col justify-between border border-white/10"
+            data-card-slideshow
+            data-card-offset={index * 2}
+          >
+            {/* Couches d'images qui défilent — toutes les 10 slides */}
+            <div class="card-slides-container absolute inset-0" aria-hidden="true">
+              {service.slides.map((slide, si) => (
+                <div
+                  data-card-slide
+                  class:list={[
+                    "absolute inset-0 bg-cover bg-center transition-all duration-1000",
+                    si === 0 ? "opacity-100 scale-100" : "opacity-0 scale-105"
+                  ]}
+                  style={`background-image: url('${slide.src}');`}
+                ></div>
+              ))}
+            </div>
+            {/* Overlay sombre avec dégradé subtil */}
+            <div class="absolute inset-0 bg-gradient-to-t from-[#071322] via-[#071322]/75 to-[#0b1d32]/70 transition-opacity duration-500 group-hover:via-[#071322]/85" aria-hidden="true"></div>
+
+            {/* Haut de carte : Icône + Badge compteur défilement automatique */}
+            <div class="relative z-10 flex items-center justify-between">
+              <div class="flex h-14 w-14 items-center justify-center rounded-xl bg-white shadow-md transition-transform duration-300 group-hover:scale-110">
+                <Fragment set:html={serviceIcons[index % serviceIcons.length]} />
+              </div>
+              <div class="flex items-center gap-1.5 rounded-full border border-white/20 bg-black/45 px-3 py-1 text-[11px] font-bold text-white/90 backdrop-blur-md">
+                <span class="h-1.5 w-1.5 rounded-full bg-[#f2d38c] pulse-dot"></span>
+                <span data-card-counter>01 / 10</span>
+              </div>
+            </div>
+
+            <div class="relative z-10 mt-auto pt-6">
+              <span class="text-xs font-bold tracking-wider uppercase text-[#f2d38c]">Service 0{index + 1}</span>
+              <h3 class="mt-2 text-2xl font-bold leading-snug text-white">
+                <a href={`/services/${service.slug}`} class="hover:text-[#f2d38c] transition-colors">
+                  {service.menuLabel}
+                </a>
+              </h3>
+              <p class="mt-3 text-xs leading-relaxed text-white/80 line-clamp-3">
+                {service.summary}
+              </p>
+
+              <div class="mt-6 border-t border-white/20 pt-4 flex items-center justify-between">
+                <a
+                  href={`/services/${service.slug}`}
+                  class="inline-flex items-center gap-2 text-sm font-bold text-white transition-all group-hover:text-[#f2d38c]"
+                >
+                  <span>En savoir plus</span>
+                  <span class="transition-transform duration-200 group-hover:translate-x-1.5" aria-hidden="true">›</span>
+                </a>
+                <span class="text-[11px] font-semibold text-[#f2d38c]/80 flex items-center gap-1">
+                  <span class="h-1 w-1 rounded-full bg-[#f2d38c]"></span>
+                  Auto
+                </span>
+              </div>
+            </div>
+
+            <span class="service-count-number pointer-events-none absolute bottom-0 right-2 select-none text-[120px] font-extrabold leading-none transition-all duration-500 group-hover:scale-105" aria-hidden="true">
+              0{index + 1}
+            </span>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION DÉMARCHE QUALITÉ : CARTES ENRICHIES ET AMÉLIORÉES -->
+  <section class="reveal mx-auto max-w-[1400px] px-5 py-20 lg:px-8 lg:py-28">
+    <div class="mx-auto max-w-3xl text-center">
+      <span class="rounded-full bg-blue-100 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-blue-700">
+        Démarche Qualité
+      </span>
+      <h2 class="mt-4 text-3xl font-extrabold text-[#0b1727] sm:text-4xl">
+        L'Excellence et la Confiance au Cœur de Nos Services
+      </h2>
+      <p class="mt-4 text-base text-[#64748b]">
+        La démarche qualité de notre entreprise place nos clients au centre de nos préoccupations. Nous recherchons l'innovation qui dynamisera nos services et qui sera le moteur de notre ambition de toujours mieux satisfaire nos clients et de justifier leur confiance.
+      </p>
+    </div>
+
+    <!-- Grille de cartes Démarche Qualité modernisée avec relief, bordure fine et icônes SVG -->
+    <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {qualityCommitments.map((step) => (
+        <div class="group relative flex flex-col justify-between rounded-2xl border-2 border-slate-100 bg-white p-7 shadow-md transition-all duration-300 hover:-translate-y-2 hover:border-[#c99119]/40 hover:shadow-xl">
+          <!-- Haut de carte : Numéro géant + Icône SVG -->
+          <div>
+            <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+              <span class="text-3xl font-black text-[#c99119] tracking-tight">{step.number}</span>
+              <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-slate-50 border border-slate-100 shadow-sm transition-transform duration-300 group-hover:scale-110">
+                <Fragment set:html={step.iconSvg} />
+              </div>
+            </div>
+
+            <!-- Titre et Description -->
+            <h3 class="mt-5 text-lg font-bold text-[#0b1727] group-hover:text-[#c99119] transition-colors">{step.title}</h3>
+            <p class="mt-3 text-xs leading-relaxed text-[#64748b]">{step.desc}</p>
+          </div>
+
+          <!-- Badge inférieur de réassurance -->
+          <div class="mt-6 border-t border-slate-100 pt-3 flex items-center justify-between">
+            <span class="text-[11px] font-semibold text-[#5876c9]">{step.badge}</span>
+            <span class="text-xs text-emerald-600 font-bold">✓</span>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- BANNIÈRE FINALE DEVIS -->
+  <section class="reveal mx-auto max-w-[1400px] px-5 py-14 lg:px-8">
+    <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#071322] via-[#0b1d32] to-[#173b5b] p-8 text-white shadow-2xl lg:p-16">
+      <div class="relative z-10 max-w-2xl">
+        <span class="inline-flex items-center gap-2 rounded-full bg-white/10 px-3.5 py-1 text-xs font-semibold text-[#f2d38c]">
+          Demandez votre devis dès aujourd'hui !
+        </span>
+        <h2 class="mt-4 text-3xl font-extrabold leading-tight text-white sm:text-4xl lg:text-5xl">
+          Besoin d'un traitement ou d'équipements spécialisés ?
+        </h2>
+        <p class="mt-4 text-base text-white/80 sm:text-lg">
+          À l'écoute de vos besoins, notre équipe apporte une réponse personnalisée et un service de haute qualité.
+        </p>
+
+        <div class="mt-8 flex flex-wrap items-center gap-4">
+          <a
+            href={contact.whatsappHref}
+            target="_blank"
+            rel="noreferrer"
+            class="action-button inline-flex min-h-[50px] items-center gap-2 rounded-xl bg-[#25D366] px-7 py-3 text-sm font-bold text-white shadow-lg transition hover:bg-[#20ba59]"
+          >
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12.04 2a9.9 9.9 0 0 0-8.55 14.9L2.2 22l5.27-1.38A9.9 9.9 0 1 0 12.04 2Zm0 17.98a8.04 8.04 0 0 1-4.1-1.13l-.3-.18-3.13.82.84-3.05-.2-.32a8.06 8.06 0 1 1 6.89 3.86Zm4.42-6.04c-.24-.12-1.42-.7-1.64-.78-.22-.08-.38-.12-.54.12-.16.24-.62.78-.76.94-.14.16-.28.18-.52.06-.24-.12-1.02-.38-1.94-1.2-.72-.64-1.2-1.43-1.34-1.67-.14-.24-.02-.37.1-.49.1-.1.24-.28.36-.42.12-.14.16-.24.24-.4.08-.16.04-.3-.02-.42-.06-.12-.54-1.3-.74-1.78-.2-.47-.4-.4-.54-.4h-.46c-.16 0-.42.06-.64.3-.22.24-.84.82-.84 2s.86 2.32.98 2.48c.12.16 1.68 2.56 4.06 3.58.57.25 1.02.4 1.37.5.58.18 1.1.15 1.52.09.46-.07 1.42-.58 1.62-1.14.2-.56.2-1.04.14-1.14-.06-.1-.22-.16-.46-.28Z"/>
+            </svg>
+            Écrire sur WhatsApp
+          </a>
+          <a
+            href="/contact"
+            class="action-button inline-flex min-h-[50px] items-center gap-2 rounded-xl border border-white/30 bg-white/10 px-7 py-3 text-sm font-semibold text-white backdrop-blur-sm hover:bg-white/20"
+          >
+            Demander un devis
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .service-count-number {
+      color: transparent;
+      -webkit-text-stroke-width: 1px;
+      -webkit-text-stroke-color: rgba(255, 255, 255, 0.22);
+    }
+
+    .service-block-card:hover .service-count-number {
+      -webkit-text-stroke-color: rgba(201, 145, 25, 0.45);
+    }
+  </style>
+
+  <!-- Script du Slider Hero, des Cartes de Services et du Compteur Chiffré -->
+  <script>
+    // ===== 1. SLIDER HERO AVEC BARRE DE PROGRESSION ET ANIMATION KEN BURNS =====
+    const slider = document.getElementById("hero-slider");
+    const heroKicker = document.getElementById("hero-kicker");
+    const heroTitle = document.getElementById("hero-title");
+    const heroDescription = document.getElementById("hero-description");
+    const heroCtaText = document.getElementById("hero-cta-text");
+    const heroCta = document.getElementById("hero-cta") as HTMLAnchorElement | null;
+    const heroTextBlock = document.getElementById("hero-text-block");
+    const progressBar = document.getElementById("hero-progress-bar");
+    const slideCount = document.getElementById("hero-slide-count");
+    const prevBtn = document.getElementById("hero-prev");
+    const nextBtn = document.getElementById("hero-next");
+    const dots = document.querySelectorAll("#hero-dots button");
+
+    if (slider && heroTitle && heroDescription && heroCta && slideCount) {
+      const backgrounds = Array.from(slider.querySelectorAll<HTMLElement>("[data-hero-background]"));
+      const slides = backgrounds.map((bg) => ({
+        kicker: bg.dataset.kicker ?? "Laboratoire International de Chimie Monétaire",
+        title: bg.dataset.title ?? "",
+        description: bg.dataset.description ?? "",
+        cta: bg.dataset.cta ?? "En savoir plus",
+        href: bg.dataset.href ?? "/",
+      }));
+
+      let activeIndex = 0;
+      let progressTimer: number | undefined;
+      let progressVal = 0;
+      const durationMs = 4800;
+      const stepMs = 50;
+
+      const animateText = () => {
+        if (!heroTextBlock) return;
+        heroTextBlock.classList.remove("animate-fade-in-up");
+        // Forcer le reflow pour relancer l'animation CSS
+        void heroTextBlock.offsetWidth;
+        heroTextBlock.classList.add("animate-fade-in-up");
+      };
+
+      const showSlide = (newIndex: number) => {
+        activeIndex = (newIndex + slides.length) % slides.length;
+
+        backgrounds.forEach((bg, idx) => {
+          if (idx === activeIndex) {
+            bg.classList.add("opacity-100", "scale-100", "kenburns-zoom");
+            bg.classList.remove("opacity-0", "scale-105");
+          } else {
+            bg.classList.remove("opacity-100", "scale-100", "kenburns-zoom");
+            bg.classList.add("opacity-0", "scale-105");
+          }
+        });
+
+        if (heroKicker) heroKicker.textContent = slides[activeIndex].kicker;
+        heroTitle.textContent = slides[activeIndex].title;
+        heroDescription.textContent = slides[activeIndex].description;
+        if (heroCtaText) heroCtaText.textContent = slides[activeIndex].cta;
+        heroCta.href = slides[activeIndex].href;
+
+        slideCount.textContent = `${String(activeIndex + 1).padStart(2, "0")} / ${String(slides.length).padStart(2, "0")}`;
+
+        dots.forEach((dot, i) => {
+          if (i === activeIndex) {
+            dot.classList.add("w-8", "bg-[#c99119]");
+            dot.classList.remove("w-2.5", "bg-white/40");
+          } else {
+            dot.classList.remove("w-8", "bg-[#c99119]");
+            dot.classList.add("w-2.5", "bg-white/40");
+          }
+        });
+
+        animateText();
+        resetProgress();
+      };
+
+      const resetProgress = () => {
+        progressVal = 0;
+        if (progressBar) progressBar.style.width = "0%";
+      };
+
+      const stopAutoplay = () => {
+        if (progressTimer !== undefined) {
+          window.clearInterval(progressTimer);
+          progressTimer = undefined;
+        }
+      };
+
+      const startAutoplay = () => {
+        stopAutoplay();
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+        progressTimer = window.setInterval(() => {
+          progressVal += (stepMs / durationMs) * 100;
+          if (progressBar) {
+            progressBar.style.width = `${Math.min(progressVal, 100)}%`;
+          }
+          if (progressVal >= 100) {
+            showSlide(activeIndex + 1);
+          }
+        }, stepMs);
+      };
+
+      prevBtn?.addEventListener("click", () => {
+        showSlide(activeIndex - 1);
+        startAutoplay();
+      });
+
+      nextBtn?.addEventListener("click", () => {
+        showSlide(activeIndex + 1);
+        startAutoplay();
+      });
+
+      dots.forEach((dot) => {
+        dot.addEventListener("click", (e) => {
+          const index = parseInt((e.currentTarget as HTMLElement).dataset.slideIndex || "0", 10);
+          showSlide(index);
+          startAutoplay();
+        });
+      });
+
+      slider.addEventListener("mouseenter", stopAutoplay);
+      slider.addEventListener("mouseleave", startAutoplay);
+
+      // Lancement initial
+      resetProgress();
+      startAutoplay();
+    }
+
+    // ===== 2. DÉFILEMENT AUTOMATIQUE DANS LES CARTES DE SERVICES =====
+    const serviceCards = Array.from(document.querySelectorAll<HTMLElement>("[data-card-slideshow]"));
+    serviceCards.forEach((card) => {
+      const slides = Array.from(card.querySelectorAll<HTMLElement>("[data-card-slide]"));
+      const counterEl = card.querySelector<HTMLElement>("[data-card-counter]");
+      if (slides.length < 2) return;
+
+      const offset = parseInt(card.getAttribute("data-card-offset") || "0", 10);
+      let cur = offset % slides.length;
+
+      const showSlideInCard = (idx: number) => {
+        slides.forEach((s, i) => {
+          if (i === idx) {
+            s.classList.add("opacity-100", "scale-100");
+            s.classList.remove("opacity-0", "scale-105");
+          } else {
+            s.classList.remove("opacity-100", "scale-100");
+            s.classList.add("opacity-0", "scale-105");
+          }
+        });
+        cur = idx;
+        if (counterEl) {
+          counterEl.textContent = `${String(cur + 1).padStart(2, "0")} / ${String(slides.length).padStart(2, "0")}`;
+        }
+      };
+
+      showSlideInCard(cur);
+
+      let timer = window.setInterval(() => {
+        showSlideInCard((cur + 1) % slides.length);
+      }, 3200);
+
+      card.addEventListener("mouseenter", () => window.clearInterval(timer));
+      card.addEventListener("mouseleave", () => {
+        timer = window.setInterval(() => {
+          showSlideInCard((cur + 1) % slides.length);
+        }, 3200);
+      });
+    });
+
+    // ===== 3. ANIMATION COMPTEUR NUMÉRIQUE SUR LES CHIFFRES CLÉS =====
+    const statCounters = document.querySelectorAll<HTMLElement>("[data-stat-counter]");
+    if (statCounters.length && "IntersectionObserver" in window) {
+      const countObserver = new IntersectionObserver(
+        (entries, obs) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const el = entry.target as HTMLElement;
+              const target = parseInt(el.dataset.target || "0", 10);
+              const suffix = el.dataset.suffix || "";
+              const duration = 1600;
+              const start = performance.now();
+
+              const updateCount = (now: number) => {
+                const elapsed = now - start;
+                const progress = Math.min(elapsed / duration, 1);
+                // Ease-out cubic
+                const easeOut = 1 - Math.pow(1 - progress, 3);
+                const currentVal = Math.round(target * easeOut);
+                el.textContent = `${currentVal}${suffix}`;
+
+                if (progress < 1) {
+                  requestAnimationFrame(updateCount);
+                } else {
+                  el.textContent = `${target}${suffix}`;
+                }
+              };
+
+              requestAnimationFrame(updateCount);
+              obs.unobserve(el);
+            }
+          });
+        },
+        { threshold: 0.3 }
+      );
+
+      statCounters.forEach((counter) => countObserver.observe(counter));
+    }
+  </script>
+
+</Layout>

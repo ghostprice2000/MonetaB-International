@@ -1,0 +1,309 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { serviceTopics } from "../../data/services";
+import { contact } from "../../data/site";
+
+export function getStaticPaths() {
+  return serviceTopics.map((topic) => ({
+    params: { slug: topic.slug },
+    props: { topic },
+  }));
+}
+
+const { topic } = Astro.props;
+---
+
+<Layout title={topic.title} description={topic.summary}>
+  <!-- Hero page titre — style labochimiemonetaire.com -->
+  <section
+    class="relative isolate flex min-h-[380px] items-end overflow-hidden bg-[#102b46] text-white sm:min-h-[440px]"
+  >
+    <img
+      src={topic.coverImage}
+      alt=""
+      aria-hidden="true"
+      class="absolute inset-0 h-full w-full object-cover opacity-50"
+    />
+    <div
+      class="absolute inset-0 bg-gradient-to-r from-[#071322]/95 via-[#0b1d32]/75 to-[#0b1d32]/30"
+      aria-hidden="true"
+    ></div>
+    <div
+      class="relative mx-auto w-full max-w-[1400px] px-5 pb-10 pt-[180px] sm:pt-[220px] lg:pt-[285px] lg:px-8"
+    >
+      <!-- Fil d'Ariane -->
+      <nav aria-label="Fil d'Ariane" class="flex items-center gap-2 text-sm font-medium text-white/75">
+        <a href="/" class="hover:text-white transition-colors">Accueil</a>
+        <span class="text-white/40" aria-hidden="true">/</span>
+        <a href="/services" class="hover:text-white transition-colors">Services</a>
+        <span class="text-white/40" aria-hidden="true">/</span>
+        <span class="text-white/90">{topic.menuLabel}</span>
+      </nav>
+      <h1 class="mt-4 max-w-3xl text-3xl font-extrabold leading-tight text-white sm:text-4xl lg:text-5xl">
+        {topic.title}
+      </h1>
+    </div>
+  </section>
+
+  <!-- Layout : sidebar gauche + contenu droit — identique à labochimiemonetaire.com -->
+  <main class="mx-auto max-w-[1400px] px-5 py-12 lg:grid lg:grid-cols-[minmax(280px,0.38fr)_minmax(0,1fr)] lg:gap-10 lg:px-8 lg:py-16">
+
+    <!-- ======= SIDEBAR ======= -->
+    <aside class="mb-10 space-y-6 lg:mb-0">
+
+      <!-- Liste des services -->
+      <div class="rounded-xl border border-[#e3eaf3] bg-white p-6 shadow-sm">
+        <h2 class="mb-1 text-lg font-extrabold uppercase tracking-wide text-[#0b1d32]">Nos Services</h2>
+        <div class="mb-5 flex items-center gap-1.5">
+          <span class="h-1 w-1 rounded-full bg-[#5876c9]"></span>
+          <span class="h-1 w-10 rounded-full bg-[#5876c9]"></span>
+        </div>
+        <ul class="space-y-2">
+          {serviceTopics.map((service) => {
+            const isCurrent = service.slug === topic.slug;
+            return (
+              <li>
+                <a
+                  href={`/services/${service.slug}`}
+                  aria-current={isCurrent ? "page" : undefined}
+                  class:list={[
+                    "flex min-h-[60px] items-center justify-between gap-3 rounded-lg px-4 py-3 text-sm font-semibold shadow-sm transition-all duration-200",
+                    isCurrent
+                      ? "bg-[#5876c9] text-white shadow-[#5876c9]/30 shadow-md"
+                      : "bg-[#f4f7fb] text-[#1b2d42] hover:bg-[#5876c9] hover:text-white",
+                  ]}
+                >
+                  <span>{service.menuLabel}</span>
+                  <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <polyline points="9 18 15 12 9 6" />
+                  </svg>
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+
+      <!-- Bloc contact / WhatsApp — style carte du site référence -->
+      <div class="relative overflow-hidden rounded-xl bg-gradient-to-b from-[#0b1d32] to-[#173b5b] p-6 text-white shadow-lg">
+        <!-- Cercles décoratifs -->
+        <div class="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-[#c99119]/15" aria-hidden="true"></div>
+        <div class="absolute -bottom-6 -left-6 h-24 w-24 rounded-full bg-[#5876c9]/20" aria-hidden="true"></div>
+
+        <p class="relative text-sm leading-relaxed text-white/80">
+          Laboratoire International de Chimie Monétaire innove et réinvente son offre sans cesse pour répondre au mieux aux besoins de ses clients.
+        </p>
+        <a
+          href={contact.whatsappHref}
+          target="_blank"
+          rel="noreferrer"
+          class="relative mt-5 inline-flex items-center gap-2 rounded-lg bg-emerald-500 px-4 py-2.5 text-sm font-bold text-white shadow hover:bg-emerald-600 transition-colors"
+        >
+          <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.768.966-.94 1.164-.173.198-.347.223-.644.075-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.372-.025-.521-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.372-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479s1.065 2.875 1.213 3.074c.149.198 2.096 3.2 5.077 4.487.709.306 1.262.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347M12.05 0C5.495 0 .16 5.335.157 11.89c0 2.096.548 4.142 1.588 5.946L0 24l6.335-1.662a11.88 11.88 0 0 0 5.708 1.454h.005c6.554 0 11.89-5.335 11.893-11.89A11.82 11.82 0 0 0 12.05 0Z"/>
+          </svg>
+          {contact.phoneDisplay}
+        </a>
+      </div>
+
+      <!-- CTA Devis -->
+      <div class="rounded-xl border border-[#e3eaf3] bg-white p-6 shadow-sm">
+        <h3 class="text-base font-extrabold text-[#0b1d32]">Besoin d'un devis ?</h3>
+        <p class="mt-2 text-sm leading-relaxed text-[#64748b]">
+          Contactez-nous pour un diagnostic gratuit et une proposition personnalisée.
+        </p>
+        <a
+          href="/contact"
+          class="mt-4 inline-flex items-center gap-2 rounded-lg bg-[#c99119] px-5 py-2.5 text-sm font-bold text-white shadow hover:bg-[#b8820f] transition-colors"
+        >
+          Demander un devis
+          <span aria-hidden="true">→</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- ======= CONTENU PRINCIPAL ======= -->
+    <article class="min-w-0">
+
+      <!-- Galerie carousel 10 photos (identique au site de référence) -->
+      <div
+        id="service-gallery"
+        class="group relative overflow-hidden rounded-xl bg-[#071322] shadow-xl"
+        aria-label="Galerie du service"
+        aria-roledescription="carrousel"
+      >
+        {topic.slides.map((slide, index) => (
+          <img
+            src={slide.src}
+            alt={slide.alt}
+            data-gallery-slide
+            aria-hidden={index !== 0 ? "true" : undefined}
+            loading={index === 0 ? "eager" : "lazy"}
+            class:list={[
+              "absolute inset-0 h-full w-full object-cover transition-opacity duration-700",
+              index === 0 ? "opacity-100" : "opacity-0",
+            ]}
+          />
+        ))}
+        <!-- Spacer 16/9 -->
+        <div class="aspect-[16/9] min-h-[240px] sm:min-h-[360px] lg:min-h-[400px]" aria-hidden="true"></div>
+
+        <!-- Contrôles -->
+        <div class="absolute inset-x-0 bottom-0 flex items-center justify-between bg-gradient-to-t from-black/70 to-transparent px-4 pb-4 pt-14">
+          <span
+            id="service-gallery-count"
+            class="rounded-full bg-black/40 px-3 py-1 text-xs font-bold text-white backdrop-blur-sm"
+            aria-live="off"
+          >
+            01 / {String(topic.slides.length).padStart(2, "0")}
+          </span>
+          <div class="flex gap-2">
+            <button
+              id="service-gallery-prev"
+              type="button"
+              class="flex h-10 w-10 items-center justify-center rounded-full border border-white/60 bg-black/30 text-white backdrop-blur-sm transition hover:bg-white hover:text-[#0b1d32]"
+              aria-label="Photo précédente"
+            >
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="15 18 9 12 15 6" />
+              </svg>
+            </button>
+            <button
+              id="service-gallery-next"
+              type="button"
+              class="flex h-10 w-10 items-center justify-center rounded-full border border-white/60 bg-black/30 text-white backdrop-blur-sm transition hover:bg-white hover:text-[#0b1d32]"
+              aria-label="Photo suivante"
+            >
+              <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Dots indicateurs -->
+        <div class="absolute bottom-14 left-1/2 flex -translate-x-1/2 gap-1.5" aria-hidden="true" id="gallery-dots">
+          {topic.slides.map((_, i) => (
+            <span
+              data-dot
+              class:list={[
+                "h-1.5 rounded-full transition-all duration-300",
+                i === 0 ? "w-6 bg-[#c99119]" : "w-1.5 bg-white/50",
+              ]}
+            ></span>
+          ))}
+        </div>
+      </div>
+
+      <!-- Section texte — style labochimiemonetaire.com -->
+      <div class="mt-10 space-y-8">
+        <div>
+          <p class="text-sm font-bold uppercase tracking-widest text-[#5876c9]">{topic.menuLabel}</p>
+          <div class="mt-2 h-0.5 w-14 bg-[#c99119]"></div>
+          <h2 class="mt-4 text-2xl font-extrabold leading-tight text-[#0b1d32] sm:text-3xl">{topic.title}</h2>
+        </div>
+
+        <!-- Paragraphes complets du texte officiel -->
+        <div class="space-y-5 text-base leading-7 text-[#465568]">
+          {topic.paragraphs.map((para) => (
+            <p set:html={para} />
+          ))}
+        </div>
+
+        <!-- Points clés -->
+        <div class="rounded-xl border border-[#e3eaf3] bg-[#f8fafc] p-6">
+          <h3 class="mb-4 text-lg font-extrabold text-[#0b1d32]">Points clés</h3>
+          <ul class="space-y-3">
+            {topic.points.map((point) => (
+              <li class="flex gap-3 text-sm leading-6 text-[#465568]">
+                <span class="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-[#c99119]" aria-hidden="true"></span>
+                <span>{point}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- CTA bas de page -->
+        <div class="flex flex-wrap gap-4">
+          <a
+            href="/contact"
+            class="inline-flex items-center gap-2 rounded-lg bg-[#5876c9] px-6 py-3 text-sm font-bold text-white shadow-lg shadow-[#5876c9]/25 transition hover:bg-[#435fae]"
+          >
+            Demander un devis
+            <span aria-hidden="true">→</span>
+          </a>
+          <a
+            href={contact.whatsappHref}
+            target="_blank"
+            rel="noreferrer"
+            class="inline-flex items-center gap-2 rounded-lg border border-emerald-500 px-6 py-3 text-sm font-bold text-emerald-700 transition hover:bg-emerald-50"
+          >
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.768.966-.94 1.164-.173.198-.347.223-.644.075-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.372-.025-.521-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.372-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479s1.065 2.875 1.213 3.074c.149.198 2.096 3.2 5.077 4.487.709.306 1.262.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347M12.05 0C5.495 0 .16 5.335.157 11.89c0 2.096.548 4.142 1.588 5.946L0 24l6.335-1.662a11.88 11.88 0 0 0 5.708 1.454h.005c6.554 0 11.89-5.335 11.893-11.89A11.82 11.82 0 0 0 12.05 0Z"/>
+            </svg>
+            WhatsApp
+          </a>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <script>
+    // Galerie service : carousel avec 10 photos, autoplay 5s, swipe, dots
+    const gallery = document.getElementById("service-gallery");
+    const countEl = document.getElementById("service-gallery-count");
+    const prevBtn = document.getElementById("service-gallery-prev");
+    const nextBtn = document.getElementById("service-gallery-next");
+    const dotsContainer = document.getElementById("gallery-dots");
+
+    if (gallery && countEl && prevBtn && nextBtn) {
+      const slides = Array.from(gallery.querySelectorAll<HTMLImageElement>("[data-gallery-slide]"));
+      const dots = dotsContainer ? Array.from(dotsContainer.querySelectorAll<HTMLElement>("[data-dot]")) : [];
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+      let activeIndex = 0;
+      let timer: number | undefined;
+
+      const showSlide = (newIndex: number) => {
+        activeIndex = (newIndex + slides.length) % slides.length;
+        slides.forEach((slide, i) => {
+          slide.classList.toggle("opacity-100", i === activeIndex);
+          slide.classList.toggle("opacity-0", i !== activeIndex);
+          slide.setAttribute("aria-hidden", i === activeIndex ? "false" : "true");
+        });
+        dots.forEach((dot, i) => {
+          dot.classList.toggle("w-6", i === activeIndex);
+          dot.classList.toggle("bg-[#c99119]", i === activeIndex);
+          dot.classList.toggle("w-1.5", i !== activeIndex);
+          dot.classList.toggle("bg-white/50", i !== activeIndex);
+        });
+        countEl.textContent = `${String(activeIndex + 1).padStart(2, "0")} / ${String(slides.length).padStart(2, "0")}`;
+      };
+
+      const stopAutoplay = () => { if (timer !== undefined) window.clearInterval(timer); timer = undefined; };
+      const startAutoplay = () => {
+        stopAutoplay();
+        if (!reduceMotion.matches && !document.hidden && slides.length > 1) {
+          timer = window.setInterval(() => showSlide(activeIndex + 1), 5000);
+        }
+      };
+
+      prevBtn.addEventListener("click", () => { showSlide(activeIndex - 1); startAutoplay(); });
+      nextBtn.addEventListener("click", () => { showSlide(activeIndex + 1); startAutoplay(); });
+      gallery.addEventListener("pointerenter", (e) => { if ((e as PointerEvent).pointerType === "mouse") stopAutoplay(); });
+      gallery.addEventListener("pointerleave", (e) => { if ((e as PointerEvent).pointerType === "mouse") startAutoplay(); });
+
+      let touchStartX: number | undefined;
+      gallery.addEventListener("pointerdown", (e) => { if ((e as PointerEvent).pointerType === "touch") touchStartX = (e as PointerEvent).clientX; });
+      gallery.addEventListener("pointerup", (e) => {
+        if ((e as PointerEvent).pointerType !== "touch" || touchStartX === undefined) return;
+        const dist = (e as PointerEvent).clientX - touchStartX;
+        touchStartX = undefined;
+        if (Math.abs(dist) < 40) return;
+        showSlide(activeIndex + (dist < 0 ? 1 : -1));
+        startAutoplay();
+      });
+      document.addEventListener("visibilitychange", startAutoplay);
+      startAutoplay();
+    }
+  </script>
+</Layout>

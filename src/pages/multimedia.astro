@@ -1,0 +1,250 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+
+// 9 vidéos YouTube officielles de labochimiemonetaire.com
+const videos = [
+  { id: "1ssjqeV4yXU", title: "Nettoyage chimique de billets sécurisés — Démonstration" },
+  { id: "d2Etc035LWk", title: "Traitement de billets tachés — Laboratoire International" },
+  { id: "XkHtRvXf6NE", title: "SSD Solution — Application professionnelle" },
+  { id: "a18vR6ale0w", title: "Machine de nettoyage de billets — Présentation" },
+  { id: "KwLyTBrMkGs", title: "Réhabilitation de billets endommagés — Expertise" },
+  { id: "zpGnmWEUB-s", title: "Produits chimiques certifiés — Poudre d'activation" },
+  { id: "FsHmxBWitnY", title: "Protocole de traitement monétaire — Étapes clés" },
+  { id: "K5HxGKHuCaY", title: "Chimie monétaire — Résultats avant/après" },
+  { id: "R3fAAIJrRr8", title: "Consulting monétaire — Accompagnement client" },
+];
+
+// 10 photos officielles téléchargées depuis labochimiemonetaire.com
+const photos = [
+  { src: "/images/labo/service/slide-01.jpg", alt: "Service laboratoire chimie monétaire" },
+  { src: "/images/labo/service/slide-02.jpg", alt: "Traitement de billets de banque" },
+  { src: "/images/labo/service/slide-03.jpg", alt: "Équipements de nettoyage professionnel" },
+  { src: "/images/labo/service/slide-04.jpg", alt: "Billets de banque sécurisés" },
+  { src: "/images/labo/service/slide-05.jpg", alt: "Laboratoire chimie monétaire" },
+  { src: "/images/labo/service/slide-06.jpg", alt: "Produits chimiques certifiés" },
+  { src: "/images/labo/service/slide-07.jpg", alt: "Expertise monétaire internationale" },
+  { src: "/images/labo/service/slide-08.jpg", alt: "Machine de nettoyage de billets" },
+  { src: "/images/labo/service/slide-09.jpg", alt: "Analyses et diagnostics billets" },
+  { src: "/images/labo/service/slide-10.jpg", alt: "Consulting chimie monétaire" },
+];
+---
+
+<Layout
+  title="Médiathèque & Vidéos"
+  description="Explorez nos vidéos de démonstration et notre galerie photographique dédiées au traitement chimique des billets de banque."
+>
+  <PageHero
+    title="Médiathèque & Vidéos d'Expertise"
+    kicker="Laboratoire en Images"
+    intro="Consultez nos vidéos de démonstration et notre galerie photographique sur les techniques d'analyse et de traitement des billets."
+  />
+
+  <!-- ===== SECTION VIDÉOS ===== -->
+  <section class="reveal mx-auto max-w-[1400px] px-5 py-16 lg:px-8 lg:py-20">
+    <!-- En-tête section -->
+    <div class="mb-12 text-center">
+      <div class="inline-flex items-center gap-2 rounded-full border border-[#5876c9]/30 bg-[#5876c9]/10 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-[#5876c9]">
+        <span class="h-1.5 w-1.5 rounded-full bg-[#5876c9]" aria-hidden="true"></span>
+        Vidéos de démonstration
+      </div>
+      <h2 class="mt-4 text-3xl font-extrabold tracking-tight text-[#0b1727] sm:text-4xl">
+        Démonstrations en Laboratoire
+      </h2>
+      <p class="mx-auto mt-3 max-w-2xl text-base text-[#64748b]">
+        Découvrez nos techniques de traitement chimique, nos équipements de pointe et nos résultats concrets.
+      </p>
+    </div>
+
+    <!-- Grille vidéos 3 colonnes — identique à labochimiemonetaire.com -->
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {videos.map((video) => (
+        <div class="group overflow-hidden rounded-xl bg-[#071322] shadow-lg transition-transform duration-300 hover:-translate-y-1 hover:shadow-xl">
+          <div class="relative">
+            <iframe
+              width="100%"
+              height="230"
+              src={`https://www.youtube.com/embed/${video.id}`}
+              title={video.title}
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+              loading="lazy"
+              class="block w-full"
+            ></iframe>
+          </div>
+          <div class="p-4">
+            <p class="text-sm font-semibold leading-snug text-white/90">{video.title}</p>
+            <div class="mt-2 flex items-center gap-1.5">
+              <svg class="h-3.5 w-3.5 text-red-500" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0C.488 3.45.029 5.804 0 12c.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0C23.512 20.55 23.971 18.196 24 12c-.029-6.185-.484-8.549-4.385-8.816zM9 16V8l8 4-8 4z"/>
+              </svg>
+              <span class="text-xs text-white/50">YouTube</span>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Séparateur décoratif -->
+  <div class="mx-auto max-w-[1400px] px-5 lg:px-8">
+    <div class="h-px bg-gradient-to-r from-transparent via-[#c99119]/40 to-transparent"></div>
+  </div>
+
+  <!-- ===== SECTION GALERIE PHOTOS ===== -->
+  <section class="reveal mx-auto max-w-[1400px] px-5 py-16 lg:px-8 lg:py-20">
+    <!-- En-tête section -->
+    <div class="mb-12 text-center">
+      <div class="inline-flex items-center gap-2 rounded-full border border-[#c99119]/30 bg-[#c99119]/10 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-[#c99119]">
+        <span class="h-1.5 w-1.5 rounded-full bg-[#c99119]" aria-hidden="true"></span>
+        Galerie photographique
+      </div>
+      <h2 class="mt-4 text-3xl font-extrabold tracking-tight text-[#0b1727] sm:text-4xl">
+        Nos Équipements & Prestations en Images
+      </h2>
+      <p class="mx-auto mt-3 max-w-2xl text-base text-[#64748b]">
+        Découvrez nos installations, nos produits chimiques certifiés et nos machines de traitement professionnelles.
+      </p>
+    </div>
+
+    <!-- Grille photos 3 colonnes avec lightbox -->
+    <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4" id="photo-gallery">
+      {photos.map((photo, index) => (
+        <button
+          type="button"
+          data-lightbox-trigger
+          data-src={photo.src}
+          data-alt={photo.alt}
+          data-index={index}
+          class="group relative block overflow-hidden rounded-xl bg-[#071322] shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-[#c99119] focus-visible:ring-offset-2"
+          aria-label={`Voir en grand : ${photo.alt}`}
+        >
+          <img
+            src={photo.src}
+            alt={photo.alt}
+            loading="lazy"
+            class="aspect-[4/3] w-full object-cover transition-transform duration-500 group-hover:scale-105"
+          />
+          <!-- Overlay hover -->
+          <div class="absolute inset-0 flex items-center justify-center bg-[#0b1d32]/0 transition-all duration-300 group-hover:bg-[#0b1d32]/50">
+            <div class="flex h-12 w-12 items-center justify-center rounded-full bg-white/0 text-white transition-all duration-300 group-hover:bg-white/20">
+              <svg class="h-6 w-6 opacity-0 transition-opacity duration-300 group-hover:opacity-100" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                <line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/>
+              </svg>
+            </div>
+          </div>
+          <!-- Numéro -->
+          <span class="absolute left-3 top-3 rounded-md bg-black/40 px-2 py-0.5 text-xs font-bold text-white/80 backdrop-blur-sm">
+            {String(index + 1).padStart(2, "0")}
+          </span>
+        </button>
+      ))}
+    </div>
+  </section>
+
+  <!-- ===== LIGHTBOX ===== -->
+  <div
+    id="lightbox"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Visionneuse d'image"
+    class="fixed inset-0 z-[200] hidden items-center justify-center bg-black/90 backdrop-blur-sm"
+  >
+    <button
+      id="lightbox-close"
+      type="button"
+      class="absolute right-4 top-4 flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/25"
+      aria-label="Fermer"
+    >
+      <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+
+    <button
+      id="lightbox-prev"
+      type="button"
+      class="absolute left-3 top-1/2 -translate-y-1/2 flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/25"
+      aria-label="Photo précédente"
+    >
+      <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <polyline points="15 18 9 12 15 6"/>
+      </svg>
+    </button>
+
+    <img
+      id="lightbox-img"
+      src=""
+      alt=""
+      class="max-h-[90vh] max-w-[90vw] rounded-lg object-contain shadow-2xl"
+    />
+
+    <button
+      id="lightbox-next"
+      type="button"
+      class="absolute right-3 top-1/2 -translate-y-1/2 flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-white/25"
+      aria-label="Photo suivante"
+    >
+      <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <polyline points="9 18 15 12 9 6"/>
+      </svg>
+    </button>
+
+    <span id="lightbox-counter" class="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full bg-black/50 px-4 py-1 text-xs font-semibold text-white/80 backdrop-blur-sm"></span>
+  </div>
+
+  <script>
+    // Lightbox
+    const lightbox = document.getElementById("lightbox");
+    const lbImg = document.getElementById("lightbox-img") as HTMLImageElement | null;
+    const lbClose = document.getElementById("lightbox-close");
+    const lbPrev = document.getElementById("lightbox-prev");
+    const lbNext = document.getElementById("lightbox-next");
+    const lbCounter = document.getElementById("lightbox-counter");
+    const triggers = Array.from(document.querySelectorAll<HTMLButtonElement>("[data-lightbox-trigger]"));
+
+    if (lightbox && lbImg && lbClose && lbPrev && lbNext && lbCounter) {
+      let currentIndex = 0;
+
+      const openLightbox = (index: number) => {
+        currentIndex = (index + triggers.length) % triggers.length;
+        const trigger = triggers[currentIndex];
+        lbImg.src = trigger.dataset.src || "";
+        lbImg.alt = trigger.dataset.alt || "";
+        lbCounter.textContent = `${String(currentIndex + 1).padStart(2, "0")} / ${String(triggers.length).padStart(2, "0")}`;
+        lightbox.classList.remove("hidden");
+        lightbox.classList.add("flex");
+        document.body.style.overflow = "hidden";
+        lbClose.focus();
+      };
+
+      const closeLightbox = () => {
+        lightbox.classList.add("hidden");
+        lightbox.classList.remove("flex");
+        document.body.style.overflow = "";
+        triggers[currentIndex]?.focus();
+      };
+
+      triggers.forEach((trigger, i) => {
+        trigger.addEventListener("click", () => openLightbox(i));
+      });
+
+      lbClose.addEventListener("click", closeLightbox);
+      lbPrev.addEventListener("click", () => openLightbox(currentIndex - 1));
+      lbNext.addEventListener("click", () => openLightbox(currentIndex + 1));
+
+      lightbox.addEventListener("click", (e) => {
+        if (e.target === lightbox) closeLightbox();
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (!lightbox.classList.contains("flex")) return;
+        if (e.key === "Escape") closeLightbox();
+        if (e.key === "ArrowLeft") openLightbox(currentIndex - 1);
+        if (e.key === "ArrowRight") openLightbox(currentIndex + 1);
+      });
+    }
+  </script>
+</Layout>

@@ -1,0 +1,1678 @@
+---
+import { site, nav, contact } from "../data/site";
+import { serviceTopics } from "../data/services";
+
+const current = Astro.url.pathname.replace(/\/$/, "") || "/";
+---
+
+<header id="site-header" class="site-header z-50">
+  <div class="header-shell">
+    <div class="header-topbar">
+      <a href="/contact#whatsapp-contact-form" class="header-topbar-quote">
+        <span aria-hidden="true">→</span> Demandez votre devis dès aujourd’hui
+      </a>
+      <label class="language-picker desktop-language" data-language-picker>
+        <span class="language-flag language-flag-fr" data-language-flag aria-hidden="true"></span>
+        <span data-language-label>Français</span>
+        <span class="language-picker-caret" aria-hidden="true">⌄</span>
+        <select data-language-select aria-label="Choisir la langue">
+          <option value="fr">Français</option>
+          <option value="en">English</option>
+        </select>
+      </label>
+      <a href={contact.whatsappHref} target="_blank" rel="noreferrer" class="header-topbar-whatsapp" aria-label="Nous contacter sur WhatsApp">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.768.966-.94 1.164-.173.198-.347.223-.644.075-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.372-.025-.521-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.372-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479s1.065 2.875 1.213 3.074c.149.198 2.096 3.2 5.077 4.487.709.306 1.262.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347M12.05 0C5.495 0 .16 5.335.157 11.89c0 2.096.548 4.142 1.588 5.946L0 24l6.335-1.662a11.88 11.88 0 0 0 5.708 1.454h.005c6.554 0 11.89-5.335 11.893-11.89A11.82 11.82 0 0 0 12.05 0Z" fill="currentColor"/></svg>
+      </a>
+    </div>
+    <div class="header-frame">
+      <a href="/" class="header-brand flex min-w-0 items-center" aria-label={`${site.name} — accueil`}>
+        <img
+          src={site.logo}
+          alt={site.name}
+          class="header-logo object-contain"
+          width="2172"
+          height="724"
+        />
+      </a>
+
+      <div class="header-info">
+        <div class="header-info-contact">
+          <span class="header-info-icon" aria-hidden="true">
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </span>
+            <span class="header-info-copy"><strong>Adresse</strong><span>{contact.address}</span></span>
+        </div>
+        <a class="header-info-contact hover:text-white" href={`mailto:${contact.email}`}>
+          <span class="header-info-icon" aria-hidden="true">
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          </span>
+            <span class="header-info-copy"><strong>E-mail</strong><span>{contact.email}</span></span>
+        </a>
+        <a class="header-info-phone" href={contact.phoneHref}>
+          <span class="header-info-phone-icon" aria-hidden="true">
+            <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </span>
+          <span><strong>Téléphone</strong><b>{contact.phoneDisplay}</b></span>
+        </a>
+      </div>
+
+      <div class="header-nav-row">
+        <nav id="desktop-navigation" class="hidden items-center gap-4 lg:flex xl:gap-6" aria-label="Navigation principale">
+        {
+          nav.filter((item) => ["/", "/a-propos", "/services", "/expertise", "/ressources", "/multimedia", "/contact"].includes(item.href)).map((item) => {
+            const active =
+              item.href === "/"
+                ? current === "/"
+                : current === item.href || current.startsWith(`${item.href}/`);
+            if (item.href === "/services") {
+              return (
+                <div class="group relative py-2">
+                  <a
+                    href={item.href}
+                    class:list={[
+                      "inline-flex items-center gap-1 text-sm font-semibold transition-colors",
+                      active ? "text-[#0b1d32]" : "text-[#1b2d42]/80 hover:text-[#0b1d32]",
+                    ]}
+                    aria-current={active ? "page" : undefined}
+                    aria-haspopup="true"
+                  >
+                    Nos Prestations <span class="desktop-services-caret" aria-hidden="true"></span>
+                  </a>
+                  <div class="desktop-services-menu invisible absolute left-0 top-full z-50 min-w-64 translate-y-2 rounded-md border border-[#e7edf3] bg-white py-2 opacity-0 shadow-lg transition duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100">
+                    {serviceTopics.map((service) => (
+                      <a class="desktop-services-link" href={`/services/${service.slug}`}>{service.menuLabel}</a>
+                    ))}
+                  </div>
+                </div>
+              );
+            }
+            return (
+              <a
+                href={item.href}
+                class:list={[
+                  "desktop-nav-link text-sm font-semibold transition-colors",
+                  active ? "text-[#0b1d32]" : "text-[#1b2d42]/80 hover:text-[#0b1d32]",
+                ]}
+                aria-current={active ? "page" : undefined}
+              >
+                {item.href === "/a-propos" ? "Présentation" : item.href === "/contact" ? "Contactez-nous" : item.label}
+              </a>
+            );
+          })
+        }
+        </nav>
+
+        <div class="header-contact hidden lg:flex">
+          <a class="quote-button action-button" href="/contact#whatsapp-contact-form">
+            Demandez un devis <span aria-hidden="true">›</span>
+          </a>
+          <a class="whatsapp-button action-button" href={contact.whatsappHref} target="_blank" rel="noreferrer" aria-label={`Écrire sur WhatsApp au ${contact.phoneDisplay}`}>
+            <svg class="whatsapp-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.768.966-.94 1.164-.173.198-.347.223-.644.075-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.372-.025-.521-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.372-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479s1.065 2.875 1.213 3.074c.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.999-3.648-.235-.374a9.86 9.86 0 01-1.511-5.26c.002-5.45 4.436-9.884 9.889-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.886 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.89c0 2.096.548 4.142 1.588 5.946L0 24l6.335-1.662a11.88 11.88 0 005.708 1.454h.005c6.554 0 11.89-5.335 11.893-11.89a11.821 11.821 0 00-3.48-8.414Z" />
+            </svg>
+          </a>
+          <a class="header-phone" href={contact.phoneHref}>{contact.phoneDisplay}</a>
+        </div>
+
+        <a class="mobile-quote-button action-button lg:hidden" href="/contact#whatsapp-contact-form">
+          Demandez un devis <span aria-hidden="true">›</span>
+        </a>
+
+        <button
+          id="mobile-menu-toggle"
+          type="button"
+          class="mobile-menu-toggle flex h-11 w-11 items-center justify-center rounded-md border border-[#dfeaf1] text-[#0b1d32] lg:hidden"
+          aria-label="Ouvrir le menu"
+          aria-controls="mobile-navigation"
+          aria-expanded="false"
+        >
+          <span class="flex w-5 flex-col gap-1.5" aria-hidden="true">
+            <span class="h-0.5 w-full bg-current"></span>
+            <span class="h-0.5 w-full bg-current"></span>
+            <span class="h-0.5 w-full bg-current"></span>
+          </span>
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="desktop-sticky-header" aria-hidden="true">
+    <div class="desktop-sticky-inner">
+      <nav id="desktop-sticky-navigation" aria-label="Navigation principale pendant le défilement"></nav>
+      <a class="desktop-sticky-quote action-button" href="/contact#whatsapp-contact-form">
+        Demandez un devis <span aria-hidden="true">›</span>
+      </a>
+    </div>
+  </div>
+
+  <button id="mobile-menu-backdrop" class="mobile-menu-backdrop" type="button" aria-label="Fermer le menu" hidden></button>
+  <div id="mobile-navigation" class="mobile-drawer" role="dialog" aria-modal="true" aria-label="Navigation principale" aria-hidden="true" hidden>
+    <div class="mobile-drawer-header">
+      <a href="/" aria-label={`${site.name} — accueil`}>
+        <img src={site.logo} alt={site.name} class="mobile-drawer-logo" width="2172" height="724" />
+      </a>
+      <button id="mobile-menu-close" class="mobile-drawer-close" type="button" aria-label="Fermer le menu">×</button>
+    </div>
+
+    <label class="language-picker mobile-language" data-language-picker>
+      <span class="language-flag language-flag-fr" data-language-flag aria-hidden="true"></span>
+      <span data-language-label>Français</span>
+      <span class="language-picker-caret" aria-hidden="true">⌄</span>
+      <select data-language-select aria-label="Choisir la langue">
+        <option value="fr">Français</option>
+        <option value="en">English</option>
+      </select>
+    </label>
+
+    <nav aria-label="Navigation mobile">
+      <ul class="mobile-nav-list">
+        {nav.filter((item) => ["/", "/a-propos", "/services", "/expertise", "/ressources", "/multimedia", "/contact"].includes(item.href)).map((item) => {
+          const active = item.href === "/" ? current === "/" : current === item.href || current.startsWith(`${item.href}/`);
+          if (item.href === "/services") {
+            return (
+              <li class="mobile-nav-item">
+                <div class="mobile-services-row">
+                  <a class="mobile-nav-link" href={item.href} aria-current={active ? "page" : undefined}>Nos Prestations</a>
+                  <button id="mobile-services-toggle" class="mobile-services-toggle" type="button" aria-label="Afficher les sous-services" aria-controls="mobile-services-submenu" aria-expanded="false">›</button>
+                </div>
+                <ul id="mobile-services-submenu" class="mobile-services-submenu" hidden>
+                  {serviceTopics.map((service) => (
+                    <li><a class="mobile-service-link" href={`/services/${service.slug}`}>{service.menuLabel}</a></li>
+                  ))}
+                </ul>
+              </li>
+            );
+          }
+          const label = item.href === "/contact" ? "Contactez-nous" : item.label;
+          return (
+            <li class="mobile-nav-item">
+              <a class="mobile-nav-link" href={item.href} aria-current={active ? "page" : undefined}>
+                {item.href === "/a-propos" ? "Présentation" : label}
+                {active && <span class="mobile-active-indicator" aria-hidden="true"></span>}
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </nav>
+
+    <div class="mobile-drawer-contact" aria-label="Coordonnées">
+      <a href={contact.phoneHref}><span class="drawer-contact-icon" aria-hidden="true"><svg class="h-4 w-4 inline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>{contact.phoneDisplay}</a>
+      <a href={contact.whatsappHref} target="_blank" rel="noreferrer">
+        <span class="drawer-contact-icon drawer-whatsapp-icon" aria-hidden="true">
+          <svg class="whatsapp-icon" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.768.966-.94 1.164-.173.198-.347.223-.644.075-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.372-.025-.521-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.372-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479s1.065 2.875 1.213 3.074c.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.626.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.999-3.648-.235-.374a9.86 9.86 0 01-1.511-5.26c.002-5.45 4.436-9.884 9.889-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.886 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.89c0 2.096.548 4.142 1.588 5.946L0 24l6.335-1.662a11.88 11.88 0 005.708 1.454h.005c6.554 0 11.89-5.335 11.893-11.89a11.821 11.821 0 00-3.48-8.414Z" /></svg>
+        </span>
+        WhatsApp
+      </a>
+      <a href={`mailto:${contact.email}`}><span class="drawer-contact-icon" aria-hidden="true"><svg class="h-4 w-4 inline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></span>{contact.email}</a>
+      <p>{contact.address}</p>
+    </div>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: absolute;
+    inset: 0 0 auto;
+    background: transparent;
+    transition: background-color 180ms ease, box-shadow 180ms ease;
+  }
+
+  .desktop-sticky-header {
+    display: none;
+  }
+
+  @media (min-width: 1024px) {
+    .header-shell {
+      padding: 18px 24px 0;
+    }
+
+    .header-topbar {
+      max-width: 1320px;
+      margin: 0 auto;
+      min-height: 46px;
+      padding: 0 0 10px;
+    }
+
+    .desktop-language {
+      display: none;
+    }
+
+    .header-frame {
+      grid-template-columns: minmax(0, 25%) minmax(0, 1fr);
+      grid-template-rows: 92px 62px;
+      border-radius: 5px;
+      background: #fff;
+      backdrop-filter: none;
+      box-shadow: 0 0 30px rgb(0 0 0 / 10%);
+    }
+
+    .header-brand {
+      grid-row: 1;
+      padding: 14px 28px;
+      border-radius: 5px 0 0 0;
+    }
+
+    .header-logo {
+      max-width: 300px;
+      max-height: 68px;
+    }
+
+    .header-info {
+      padding: 0;
+      border-radius: 0 5px 0 0;
+      border-bottom: 0;
+    }
+
+    .header-info-contact {
+      min-height: 100%;
+      padding: 12px 20px;
+      border-left: 1px solid #edf0f3;
+    }
+
+    .header-info-phone {
+      position: static;
+      width: 230px;
+      min-height: 100%;
+      flex: 0 0 230px;
+      align-items: center;
+      padding: 12px 18px;
+    }
+
+    .header-nav-row {
+      grid-column: 1 / -1;
+      grid-row: 2;
+      padding: 0 0 0 28px;
+      border-top: 1px solid #edf0f3;
+      border-radius: 0 0 5px 5px;
+      background: #fff;
+    }
+
+    .header-nav-row nav {
+      height: 100%;
+      gap: clamp(18px, 2.2vw, 36px);
+    }
+
+    .header-nav-row nav > a,
+    .header-nav-row nav > div > a {
+      position: relative;
+      display: inline-flex;
+      height: 100%;
+      align-items: center;
+      color: #263547;
+      font-size: 17px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 180ms ease;
+    }
+
+    .header-nav-row nav > a::after,
+    .header-nav-row nav > div > a::after {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      height: 3px;
+      background: #5876c9;
+      content: "";
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 200ms ease;
+    }
+
+    .header-nav-row nav > a:hover,
+    .header-nav-row nav > a:focus-visible,
+    .header-nav-row nav > div > a:hover,
+    .header-nav-row nav > div > a:focus-visible {
+      color: #5876c9;
+    }
+
+    .header-nav-row nav > a:hover::after,
+    .header-nav-row nav > a:focus-visible::after,
+    .header-nav-row nav > a[aria-current="page"]::after,
+    .header-nav-row nav > div > a:hover::after,
+    .header-nav-row nav > div > a:focus-visible::after,
+    .header-nav-row nav > div > a[aria-current="page"]::after {
+      transform: scaleX(1);
+    }
+
+    .header-nav-row nav > a[aria-current="page"],
+    .header-nav-row nav > div > a[aria-current="page"] {
+      color: #5876c9;
+    }
+
+    .header-nav-row .group {
+      height: 100%;
+      padding: 0;
+    }
+
+    .header-contact {
+      position: static;
+      width: 250px;
+      height: 62px;
+      flex: 0 0 250px;
+      background: #5876c9;
+    }
+
+    .quote-button {
+      min-height: 62px;
+      padding: 0 24px;
+      font-size: 15px;
+    }
+
+    .site-header.is-scrolled .header-frame {
+      border-radius: 0;
+    }
+
+    .site-header.is-scrolled .header-brand {
+      grid-row: 1 / 3;
+    }
+
+    .site-header.is-scrolled .header-nav-row {
+      grid-column: 2;
+      grid-row: 2;
+    }
+  }
+
+  .header-shell {
+    width: 100%;
+    max-width: 1786px;
+    margin: 0 auto;
+    padding: 10px 16px 0;
+    transition: padding 180ms ease, max-width 180ms ease;
+  }
+
+  .header-topbar {
+    display: flex;
+    min-height: 34px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2px 8px;
+  }
+
+  .header-topbar-quote {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: #142d47;
+    font-size: 18px;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .header-topbar-quote span {
+    color: #5876c9;
+    font-size: 20px;
+  }
+
+  .header-topbar-whatsapp {
+    position: relative;
+    display: grid;
+    width: 40px;
+    height: 40px;
+    place-items: center;
+    border-radius: 50%;
+    background: #25d366;
+    color: #fff;
+    transition: transform 180ms ease, background-color 180ms ease;
+  }
+
+  .header-topbar-whatsapp:hover,
+  .header-topbar-whatsapp:focus-visible {
+    transform: translateY(-2px);
+    background: #1da851;
+  }
+
+  .header-topbar-whatsapp svg {
+    width: 25px;
+    height: 25px;
+    opacity: 0;
+  }
+
+  .header-topbar-whatsapp::after {
+    position: absolute;
+    inset: 7px;
+    background: center / contain no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2.5a9.3 9.3 0 0 0-8 14l-1 4.1 4.1-1.1a9.3 9.3 0 1 0 4.9-17Z' fill='none' stroke='%23fff' stroke-width='2' stroke-linejoin='round'/%3E%3Cpath d='M8 7.3c-.4 0-.8.4-.9.9-.2 1.4.5 3.2 2 4.7 1.5 1.5 3.3 2.2 4.7 2 .5-.1.9-.5.9-.9v-.9l-2.2-.8-.8.8c-.8-.3-1.9-1.4-2.2-2.2l.8-.8-.8-2.2H8Z' fill='%23fff'/%3E%3C/svg%3E");
+    content: "";
+    pointer-events: none;
+  }
+
+  .language-picker {
+    position: relative;
+    display: inline-flex;
+    min-width: 190px;
+    min-height: 46px;
+    align-items: center;
+    gap: 12px;
+    padding: 0 14px;
+    border-radius: 7px;
+    background: #f5f6f7;
+    color: #152535;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  .language-picker [data-language-flag] {
+    display: inline-block;
+    width: 28px;
+    height: 22px;
+    flex: 0 0 28px;
+    overflow: hidden;
+    border-radius: 2px;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+  }
+
+  .language-flag-fr {
+    background: linear-gradient(90deg, #203b86 0 33.33%, #fff 33.33% 66.66%, #e54545 66.66% 100%);
+  }
+
+  .language-flag-us {
+    position: relative;
+    background: repeating-linear-gradient(
+      to bottom,
+      #b22234 0 7.69%,
+      #fff 7.69% 15.38%
+    );
+  }
+
+  .language-flag-us::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 42%;
+    height: 54%;
+    background: #3c3b6e;
+    content: "";
+  }
+
+  .language-picker-caret {
+    margin-left: auto;
+    font-size: 18px;
+  }
+
+  .language-picker select {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  .header-frame {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 26%) minmax(0, 1fr);
+    grid-template-rows: 64px 84px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.88);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 12px 32px rgba(8, 22, 36, 0.16);
+  }
+
+  .header-brand {
+    grid-column: 1;
+    grid-row: 1 / 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    padding: 16px 20px;
+    border-radius: 14px 0 0 14px;
+    background: transparent;
+  }
+
+  .header-logo {
+    display: block;
+    width: 100%;
+    max-width: 410px;
+    max-height: 82px;
+    object-fit: contain;
+  }
+
+  .header-info {
+    grid-column: 2;
+    grid-row: 1;
+    position: static;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 0 calc(25% + 20px) 0 20px;
+    border-radius: 0 14px 0 0;
+    background: #fff;
+    border-bottom: 1px solid #e6e9ef;
+  }
+
+  .header-info-contact {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+    flex: 1 1 0;
+    color: #202b39;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  .header-info-contact span:last-child {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .header-info-copy {
+    display: grid;
+    min-width: 0;
+    gap: 5px;
+  }
+
+  .header-info-copy strong {
+    color: #142d47;
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+  .header-info-copy > span {
+    color: #202b39;
+    font-size: 16px;
+    line-height: 1.35;
+  }
+
+  .header-info-icon {
+    flex: 0 0 auto;
+    font-size: 17px;
+    color: #5876c9;
+  }
+
+  .header-info-phone {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    width: 24%;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 12px 84px;
+    background: #303238;
+    color: #fff;
+    text-decoration: none;
+  }
+
+  .header-info-phone-icon {
+    display: grid;
+    width: 42px;
+    height: 42px;
+    flex: 0 0 42px;
+    place-items: center;
+    border-radius: 50%;
+    background: #5876c9;
+    font-size: 22px;
+  }
+
+  .header-info-phone strong,
+  .header-info-phone b {
+    display: block;
+  }
+
+  .header-info-phone strong {
+    font-size: 14px;
+  }
+
+  .header-info-phone b {
+    margin-top: 3px;
+    font-size: 15px;
+    line-height: 1.3;
+    overflow-wrap: anywhere;
+  }
+
+  .header-nav-row {
+    grid-column: 2;
+    grid-row: 2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    min-width: 0;
+    padding: 0 calc(24% + 16px) 0 20px;
+    border-radius: 0 0 14px 0;
+    background: transparent;
+  }
+
+  .header-contact {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    display: flex;
+    width: 24%;
+    height: 84px;
+    align-items: stretch;
+    margin-left: 0;
+    background: linear-gradient(135deg, #5b76d1, #4058a8);
+  }
+
+  .header-contact .whatsapp-button,
+  .header-contact .header-phone {
+    display: none;
+  }
+
+  .quote-button,
+  .mobile-quote-button {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border-radius: 0.4rem;
+    background: linear-gradient(135deg, #5b76d1, #4058a8);
+    color: #fff;
+    font-weight: 700;
+    text-decoration: none;
+    transition: filter 180ms ease, transform 180ms ease;
+  }
+
+  .quote-button {
+    display: inline-flex;
+    width: 100%;
+    min-height: 84px;
+    padding: 0 14px;
+    border-radius: 0;
+    white-space: normal;
+    text-align: center;
+  }
+
+  .mobile-quote-button {
+    min-height: 48px;
+    padding: 0 clamp(10px, 3vw, 18px);
+    font-size: clamp(11px, 3.2vw, 14px);
+    white-space: nowrap;
+  }
+
+  .quote-button:hover,
+  .quote-button:focus-visible,
+  .mobile-quote-button:hover,
+  .mobile-quote-button:focus-visible {
+    filter: brightness(1.08);
+    transform: translateY(-1px);
+  }
+
+  .whatsapp-button {
+    display: inline-flex;
+    width: 42px;
+    height: 42px;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 42px;
+    border-radius: 50%;
+    background: #f4f7f8;
+    color: #168b55;
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .whatsapp-icon {
+    display: block;
+    width: 22px;
+    height: 22px;
+    fill: currentColor;
+  }
+
+  .header-phone {
+    color: #102b45;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.2;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .desktop-services-caret {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    margin: -4px 0 0 2px;
+    border-right: 1.8px solid currentColor;
+    border-bottom: 1.8px solid currentColor;
+    transform: rotate(45deg);
+    transform-origin: center;
+    transition: transform 220ms ease, color 180ms ease;
+  }
+
+  .group:hover .desktop-services-caret,
+  .group:focus-within .desktop-services-caret {
+    transform: rotate(225deg);
+  }
+
+  .desktop-services-link {
+    position: relative;
+    isolation: isolate;
+    display: block;
+    overflow: hidden;
+    padding: 9px 16px;
+    color: #1b2d42;
+    font-size: 16px;
+    text-decoration: none;
+    transition: color 220ms ease, padding-left 220ms ease, opacity 250ms ease, transform 250ms ease;
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+
+  .desktop-services-link::before,
+  .mobile-service-link::before {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    background: #2e79c1;
+    content: "";
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 280ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .desktop-services-link:hover,
+  .desktop-services-link:focus-visible {
+    padding-left: 20px;
+    color: white;
+  }
+
+  .desktop-services-link:hover::before,
+  .desktop-services-link:focus-visible::before,
+  .mobile-service-link:hover::before,
+  .mobile-service-link:focus-visible::before {
+    transform: scaleX(1);
+  }
+
+  .group:hover .desktop-services-link,
+  .group:focus-within .desktop-services-link {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .group:hover .desktop-services-link:nth-child(1),
+  .group:focus-within .desktop-services-link:nth-child(1) {
+    transition-delay: 20ms;
+  }
+
+  .group:hover .desktop-services-link:nth-child(2),
+  .group:focus-within .desktop-services-link:nth-child(2) {
+    transition-delay: 65ms;
+  }
+
+  .group:hover .desktop-services-link:nth-child(3),
+  .group:focus-within .desktop-services-link:nth-child(3) {
+    transition-delay: 110ms;
+  }
+
+  .group:hover .desktop-services-link:nth-child(4),
+  .group:focus-within .desktop-services-link:nth-child(4) {
+    transition-delay: 155ms;
+  }
+
+  .site-header.is-scrolled {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    background: white;
+    box-shadow: 0 6px 22px rgba(8, 22, 36, 0.12);
+  }
+
+  .site-header.is-scrolled .header-shell {
+    max-width: none;
+    padding: 0;
+  }
+
+  .site-header.is-scrolled .header-topbar {
+    display: none;
+  }
+
+  .site-header.is-scrolled .header-frame {
+    border-radius: 0;
+    background: white;
+    box-shadow: none;
+  }
+
+  .site-header.is-scrolled .header-brand,
+  .site-header.is-scrolled .header-info,
+  .site-header.is-scrolled .header-nav-row {
+    border-radius: 0;
+  }
+
+  @media (max-width: 1023px) {
+    .header-shell {
+      max-width: none;
+      padding: 38px 5vw 0;
+    }
+
+    .header-topbar,
+    .header-info-phone {
+      display: none;
+    }
+
+    .header-frame {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      min-height: 82px;
+      overflow: visible;
+      border-radius: 12px;
+    }
+
+    .header-info {
+      display: none;
+    }
+
+    .header-contact {
+      display: none;
+    }
+
+    .header-brand {
+      flex: 1 1 auto;
+      justify-content: space-between;
+      min-height: 82px;
+      padding: 12px 16px;
+      border-radius: 12px 0 0 12px;
+    }
+
+    .header-logo {
+      width: min(100%, 280px);
+      max-height: 58px;
+    }
+
+    .header-nav-row {
+      flex: 0 0 auto;
+      min-height: 82px;
+      gap: 8px;
+      padding: 0 12px 0 8px;
+      border-radius: 0 12px 12px 0;
+    }
+
+    .mobile-quote-button {
+      display: inline-flex;
+    }
+
+    .site-header.is-scrolled .header-frame {
+      border-radius: 0;
+    }
+
+    .site-header.is-scrolled .header-brand,
+    .site-header.is-scrolled .header-nav-row {
+      border-radius: 0;
+    }
+  }
+
+  @media (min-width: 1024px) and (max-width: 1279px) {
+    .header-info-contact:first-child {
+      display: none;
+    }
+
+    .header-info {
+      padding-left: 12px;
+    }
+
+    .header-info-contact {
+      font-size: 12px;
+    }
+
+    .header-nav-row {
+      gap: 8px;
+      padding-left: 12px;
+    }
+
+    .header-nav-row nav {
+      gap: 10px;
+    }
+
+    .header-contact,
+    .header-info-phone {
+      width: 25%;
+    }
+  }
+
+  .mobile-menu-backdrop {
+    position: fixed;
+    z-index: 51;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    background: rgba(8, 20, 32, 0.38);
+  }
+
+  .mobile-drawer {
+    position: fixed;
+    z-index: 52;
+    inset: 0 auto 0 0;
+    display: flex;
+    flex-direction: column;
+    width: min(420px, 100vw);
+    height: 100vh;
+    height: 100dvh;
+    overflow-y: auto;
+    padding: 28px 26px 32px;
+    background: white;
+    box-shadow: 12px 0 36px rgba(8, 20, 32, 0.18);
+    transform: translateX(-102%);
+    transition: transform 220ms ease;
+  }
+
+  .mobile-drawer[hidden],
+  .mobile-menu-backdrop[hidden] {
+    display: none;
+  }
+
+  .mobile-drawer.is-open {
+    transform: translateX(0);
+  }
+
+  .mobile-drawer-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 14px;
+  }
+
+  .mobile-drawer-logo {
+    display: block;
+    width: min(280px, 68vw);
+    height: auto;
+    max-height: 104px;
+    object-fit: contain;
+    object-position: left center;
+  }
+
+  .mobile-drawer-close {
+    display: flex;
+    flex: 0 0 40px;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: 0;
+    border-radius: 50%;
+    background: #2e79c1;
+    color: white;
+    font-size: 28px;
+    line-height: 1;
+  }
+
+  .mobile-language {
+    width: min(300px, 100%);
+    min-height: 54px;
+    margin: 38px 0 64px;
+    font-size: 18px;
+  }
+
+  .mobile-nav-list {
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid #e6e9ec;
+    list-style: none;
+  }
+
+  .mobile-nav-item {
+    border-bottom: 1px solid #e6e9ec;
+  }
+
+  .mobile-nav-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 62px;
+    color: #182a3b;
+    font-size: 18px;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .mobile-active-indicator {
+    width: 14px;
+    height: 14px;
+    margin-right: 14px;
+    border: 1px solid #2e79c1;
+    border-radius: 50%;
+    background: #c8dcee;
+    box-shadow: inset 0 0 0 4px white;
+  }
+
+  .mobile-services-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .mobile-services-row .mobile-nav-link {
+    flex: 1;
+  }
+
+  .mobile-services-toggle {
+    display: flex;
+    flex: 0 0 40px;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: 0;
+    background: #2e79c1;
+    color: white;
+    font-size: 28px;
+    line-height: 1;
+    background-image: linear-gradient(90deg, #173b5b 50%, #2e79c1 50%);
+    background-position: right center;
+    background-size: 200% 100%;
+    transition: background-position 260ms ease, transform 260ms ease;
+  }
+
+  .mobile-services-toggle:hover,
+  .mobile-services-toggle:focus-visible {
+    background-position: left center;
+  }
+
+  .mobile-services-toggle[aria-expanded="true"] {
+    transform: rotate(90deg);
+  }
+
+  .mobile-services-submenu {
+    margin: 0 0 12px 12px;
+    padding: 0 0 0 14px;
+    border-left: 2px solid #e6e9ec;
+    list-style: none;
+  }
+
+  .mobile-services-submenu[hidden] {
+    display: none;
+  }
+
+  .mobile-service-link {
+    position: relative;
+    isolation: isolate;
+    display: block;
+    overflow: hidden;
+    padding: 10px 4px;
+    color: #536779;
+    font-size: 15px;
+    text-decoration: none;
+    transition: color 220ms ease, padding-left 220ms ease;
+  }
+
+  .mobile-service-link:hover,
+  .mobile-service-link:focus-visible {
+    padding-left: 12px;
+    color: white;
+  }
+
+  .mobile-services-submenu:not([hidden]) li {
+    animation: service-submenu-enter 300ms both;
+  }
+
+  .mobile-services-submenu:not([hidden]) li:nth-child(2) {
+    animation-delay: 45ms;
+  }
+
+  .mobile-services-submenu:not([hidden]) li:nth-child(3) {
+    animation-delay: 90ms;
+  }
+
+  .mobile-services-submenu:not([hidden]) li:nth-child(4) {
+    animation-delay: 135ms;
+  }
+
+  @keyframes service-submenu-enter {
+    from {
+      opacity: 0;
+      transform: translateY(7px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .desktop-services-caret,
+    .desktop-services-link,
+    .desktop-services-link::before,
+    .mobile-services-toggle,
+    .mobile-service-link,
+    .mobile-service-link::before,
+    .mobile-services-submenu:not([hidden]) li {
+      animation: none;
+      transition: none;
+    }
+  }
+
+  .mobile-drawer-contact {
+    display: grid;
+    gap: 14px;
+    margin-top: auto;
+    padding-top: 36px;
+  }
+
+  .mobile-drawer-contact a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+    color: #182a3b;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    overflow-wrap: anywhere;
+  }
+
+  .drawer-contact-icon {
+    display: inline-flex;
+    flex: 0 0 38px;
+    width: 38px;
+    height: 38px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #2e79c1;
+    color: white;
+    font-size: 17px;
+  }
+
+  .drawer-whatsapp-icon .whatsapp-icon {
+    width: 21px;
+    height: 21px;
+  }
+
+  .mobile-drawer-contact p {
+    margin: 4px 0 0;
+    color: #536779;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  @media (min-width: 1024px) {
+    .mobile-drawer,
+    .mobile-menu-backdrop {
+      display: none !important;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .site-header {
+      background: linear-gradient(to bottom, #f1f2f5 0 237px, transparent 237px);
+    }
+
+    .site-header .header-shell {
+      max-width: 1786px;
+      padding: 18px 24px 0;
+    }
+
+    .site-header .header-topbar {
+      max-width: none;
+      min-height: 52px;
+      margin: 0 auto;
+      padding: 0 0 10px;
+    }
+
+    .site-header .desktop-language {
+      display: none;
+    }
+
+    .site-header .header-frame {
+      grid-template-columns: minmax(0, 20%) minmax(0, 1fr);
+      grid-template-rows: 140px 100px;
+      border-radius: 5px;
+      background: #fff;
+      backdrop-filter: none;
+      box-shadow: 0 0 30px rgb(0 0 0 / 10%);
+      animation: header-frame-enter 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .site-header .header-brand {
+      grid-row: 1;
+      padding: 20px 30px;
+      border-radius: 5px 0 0 0;
+    }
+
+    .site-header .header-logo {
+      max-width: 340px;
+      max-height: 100px;
+    }
+
+    .site-header .header-info {
+      padding: 0;
+      border-radius: 0 5px 0 0;
+      border-bottom: 0;
+      animation: header-info-enter 600ms 100ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .site-header .header-info-contact {
+      min-height: 100%;
+      padding: 20px 28px;
+      border-left: 1px solid #edf0f3;
+    }
+
+    .site-header .header-info-copy strong {
+      font-size: 19px;
+    }
+
+    .site-header .header-info-copy > span {
+      font-size: 20px;
+    }
+
+    .site-header .header-info-phone {
+      position: static;
+      width: clamp(270px, 23vw, 405px);
+      min-height: 100%;
+      flex: 0 0 clamp(270px, 23vw, 405px);
+      align-items: center;
+      padding: 22px 26px;
+    }
+
+    .site-header .header-info-phone-icon {
+      width: 56px;
+      height: 56px;
+      flex-basis: 56px;
+      font-size: 27px;
+    }
+
+    .site-header .header-info-phone strong {
+      font-size: 18px;
+    }
+
+    .site-header .header-info-phone b {
+      font-size: 20px;
+    }
+
+    .site-header .header-nav-row {
+      grid-column: 1 / -1;
+      grid-row: 2;
+      padding: 0 0 0 38px;
+      border-top: 1px solid #edf0f3;
+      border-radius: 0 0 5px 5px;
+      background: #fff;
+    }
+
+    .site-header .header-nav-row nav {
+      height: 100%;
+      gap: clamp(22px, 3.2vw, 58px);
+    }
+
+    .site-header .header-nav-row nav > a,
+    .site-header .header-nav-row nav > div > a {
+      position: relative;
+      display: inline-flex;
+      height: 100%;
+      align-items: center;
+      color: #263547;
+      font-size: clamp(18px, 1.35vw, 25px);
+      font-weight: 700;
+      text-decoration: none;
+      transition: color 180ms ease;
+      animation: nav-item-enter 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .site-header .header-nav-row nav > :nth-child(1) > a,
+    .site-header .header-nav-row nav > :nth-child(1) {
+      animation-delay: 140ms;
+    }
+
+    .site-header .header-nav-row nav > :nth-child(2) > a,
+    .site-header .header-nav-row nav > :nth-child(2) {
+      animation-delay: 210ms;
+    }
+
+    .site-header .header-nav-row nav > :nth-child(3) > a,
+    .site-header .header-nav-row nav > :nth-child(3) {
+      animation-delay: 280ms;
+    }
+
+    .site-header .header-nav-row nav > :nth-child(4) > a,
+    .site-header .header-nav-row nav > :nth-child(4) {
+      animation-delay: 350ms;
+    }
+
+    .site-header .header-nav-row nav > :nth-child(5) > a,
+    .site-header .header-nav-row nav > :nth-child(5) {
+      animation-delay: 420ms;
+    }
+
+    .site-header .header-nav-row nav > a::after,
+    .site-header .header-nav-row nav > div > a::after {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      height: 4px;
+      background: #5876c9;
+      content: "";
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 200ms ease;
+    }
+
+    .site-header .header-nav-row nav > a:hover,
+    .site-header .header-nav-row nav > a:focus-visible,
+    .site-header .header-nav-row nav > div > a:hover,
+    .site-header .header-nav-row nav > div > a:focus-visible,
+    .site-header .header-nav-row nav > a[aria-current="page"],
+    .site-header .header-nav-row nav > div > a[aria-current="page"] {
+      color: #5876c9;
+    }
+
+    .site-header .header-nav-row nav > a:hover::after,
+    .site-header .header-nav-row nav > a:focus-visible::after,
+    .site-header .header-nav-row nav > a[aria-current="page"]::after,
+    .site-header .header-nav-row nav > div > a:hover::after,
+    .site-header .header-nav-row nav > div > a:focus-visible::after,
+    .site-header .header-nav-row nav > div > a[aria-current="page"]::after {
+      transform: scaleX(1);
+    }
+
+    .site-header .header-nav-row .group {
+      height: 100%;
+      padding: 0;
+    }
+
+    .site-header .header-contact {
+      position: static;
+      width: clamp(270px, 23vw, 405px);
+      height: 100px;
+      flex: 0 0 clamp(270px, 23vw, 405px);
+      background: #5876c9;
+    }
+
+    .site-header .quote-button {
+      min-height: 100px;
+      padding: 0 28px;
+      font-size: clamp(18px, 1.25vw, 23px);
+    }
+
+    .site-header .desktop-sticky-header {
+      display: none;
+    }
+
+    .site-header.is-scrolled {
+      position: fixed;
+      inset: 0 0 auto;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .site-header.is-scrolled .header-shell {
+      display: none;
+    }
+
+    .site-header.is-scrolled .desktop-sticky-header {
+      display: block;
+      background: #fff;
+      border-bottom: 1px solid rgba(9, 7, 37, 0.1);
+      box-shadow: 0 8px 24px rgba(9, 7, 37, 0.1);
+      animation: sticky-header-enter 500ms ease both;
+    }
+
+    .desktop-sticky-inner {
+      display: flex;
+      min-height: 82px;
+      max-width: 1786px;
+      align-items: stretch;
+      justify-content: space-between;
+      gap: 28px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .site-header #desktop-sticky-navigation {
+      display: flex;
+      flex: 1 1 auto;
+      min-width: 0;
+      align-items: stretch;
+      justify-content: flex-start;
+      gap: clamp(22px, 3.2vw, 58px);
+    }
+
+    .site-header #desktop-sticky-navigation > a,
+    .site-header #desktop-sticky-navigation > div > a {
+      display: inline-flex;
+      height: 100%;
+      align-items: center;
+      font-size: clamp(17px, 1.2vw, 22px);
+      white-space: nowrap;
+    }
+
+    .site-header #desktop-sticky-navigation > .group {
+      display: flex;
+      height: 100%;
+      align-items: stretch;
+      padding: 0;
+    }
+
+    .desktop-sticky-quote {
+      display: inline-flex;
+      min-width: clamp(230px, 23vw, 405px);
+      min-height: 82px;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 0 24px;
+      background: #5876c9;
+      color: #fff;
+      font-size: clamp(17px, 1.2vw, 22px);
+      font-weight: 700;
+      text-decoration: none;
+      transition: background-color 180ms ease;
+    }
+
+    .desktop-sticky-quote:hover,
+    .desktop-sticky-quote:focus-visible {
+      background: #4058a8;
+    }
+
+    .desktop-sticky-quote span {
+      font-size: 1.35em;
+      line-height: 1;
+    }
+  }
+
+  @media (min-width: 1024px) and (max-width: 1279px) {
+    .site-header .header-shell {
+      padding-right: 16px;
+      padding-left: 16px;
+    }
+
+    .site-header .header-frame {
+      grid-template-columns: minmax(0, 18%) minmax(0, 1fr);
+      grid-template-rows: 122px 82px;
+    }
+
+    .site-header .header-brand {
+      padding: 16px;
+    }
+
+    .site-header .header-info-contact:first-child {
+      display: none;
+    }
+
+    .site-header .header-info-contact {
+      padding: 14px;
+    }
+
+    .site-header .header-info-phone,
+    .site-header .header-contact {
+      width: 250px;
+      flex-basis: 250px;
+    }
+
+    .site-header .header-nav-row {
+      padding-left: 18px;
+    }
+
+    .site-header .header-nav-row nav {
+      gap: 14px;
+    }
+
+    .site-header .header-nav-row nav > a,
+    .site-header .header-nav-row nav > div > a {
+      font-size: 16px;
+    }
+
+    .site-header .header-contact,
+    .site-header .quote-button {
+      height: 82px;
+      min-height: 82px;
+    }
+  }
+
+  @keyframes header-frame-enter {
+    from {
+      opacity: 0;
+      transform: translateY(-14px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes header-info-enter {
+    from {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes nav-item-enter {
+    from {
+      opacity: 0;
+      transform: translateY(9px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes sticky-header-enter {
+    from {
+      opacity: 0;
+      transform: translateY(-100%);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .site-header .header-frame,
+    .site-header .header-info,
+    .site-header .header-nav-row nav > a,
+    .site-header .header-nav-row nav > div {
+      animation: none;
+    }
+
+    .site-header .header-nav-row nav > a::after,
+    .site-header .header-nav-row nav > div > a::after,
+    .site-header .desktop-sticky-header {
+      transition: none;
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  const siteHeader = document.getElementById("site-header");
+  const desktopNavigation = document.getElementById("desktop-navigation");
+  const stickyNavigation = document.getElementById("desktop-sticky-navigation");
+
+  if (desktopNavigation && stickyNavigation) {
+    for (const item of desktopNavigation.children) {
+      stickyNavigation.append(item.cloneNode(true));
+    }
+  }
+
+  if (siteHeader) {
+    const updateHeader = () => {
+      const isDesktop = window.matchMedia("(min-width: 1024px)").matches;
+      const isScrolled = window.scrollY >= (isDesktop ? 180 : 40);
+      siteHeader.classList.toggle("is-scrolled", isScrolled);
+      siteHeader.style.zIndex = isScrolled ? "50" : "";
+      siteHeader.querySelector(".desktop-sticky-header")?.setAttribute("aria-hidden", String(!isDesktop || !isScrolled));
+    };
+
+    window.addEventListener("scroll", updateHeader, { passive: true });
+    window.matchMedia("(min-width: 1024px)").addEventListener("change", updateHeader);
+    updateHeader();
+  }
+
+  const menuToggle = document.getElementById("mobile-menu-toggle");
+  const menuClose = document.getElementById("mobile-menu-close");
+  const menuBackdrop = document.getElementById("mobile-menu-backdrop");
+  const mobileNavigation = document.getElementById("mobile-navigation");
+  const servicesToggle = document.getElementById("mobile-services-toggle");
+  const servicesSubmenu = document.getElementById("mobile-services-submenu");
+
+  if (
+    menuToggle instanceof HTMLButtonElement &&
+    menuClose instanceof HTMLButtonElement &&
+    menuBackdrop instanceof HTMLButtonElement &&
+    mobileNavigation instanceof HTMLElement
+  ) {
+    const closeMenu = () => {
+      mobileNavigation.classList.remove("is-open");
+      mobileNavigation.hidden = true;
+      mobileNavigation.setAttribute("aria-hidden", "true");
+      menuBackdrop.hidden = true;
+      menuToggle.setAttribute("aria-expanded", "false");
+      menuToggle.setAttribute("aria-label", "Ouvrir le menu");
+      if (servicesToggle instanceof HTMLButtonElement && servicesSubmenu instanceof HTMLElement) {
+        servicesToggle.setAttribute("aria-expanded", "false");
+        servicesToggle.setAttribute("aria-label", "Afficher les sous-services");
+        servicesSubmenu.hidden = true;
+      }
+      document.body.style.removeProperty("overflow");
+    };
+
+    const openMenu = () => {
+      mobileNavigation.hidden = false;
+      mobileNavigation.setAttribute("aria-hidden", "false");
+      menuBackdrop.hidden = false;
+      menuToggle.setAttribute("aria-expanded", "true");
+      menuToggle.setAttribute("aria-label", "Fermer le menu");
+      document.body.style.overflow = "hidden";
+      mobileNavigation.classList.add("is-open");
+      menuClose.focus();
+    };
+
+    menuToggle.addEventListener("click", openMenu);
+    menuClose.addEventListener("click", closeMenu);
+    menuBackdrop.addEventListener("click", closeMenu);
+    mobileNavigation.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", closeMenu);
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && !mobileNavigation.hidden) {
+        closeMenu();
+        menuToggle.focus();
+      }
+    });
+
+    servicesToggle?.addEventListener("click", () => {
+      if (!(servicesToggle instanceof HTMLButtonElement) || !(servicesSubmenu instanceof HTMLElement)) return;
+      const expanded = servicesToggle.getAttribute("aria-expanded") === "true";
+      servicesToggle.setAttribute("aria-expanded", String(!expanded));
+      servicesToggle.setAttribute("aria-label", expanded ? "Afficher les sous-services" : "Masquer les sous-services");
+      servicesSubmenu.hidden = expanded;
+    });
+
+    window.matchMedia("(min-width: 1024px)").addEventListener("change", (event) => {
+      if (event.matches) closeMenu();
+    });
+  }
+</script>

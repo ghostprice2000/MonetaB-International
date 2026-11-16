@@ -1,0 +1,96 @@
+// 10 slides officiels téléchargés depuis labochimiemonetaire.com/assets/images/service/
+const allSlides = [
+  { src: "/images/labo/service/slide-01.jpg", alt: "Service laboratoire chimie monétaire" },
+  { src: "/images/labo/service/slide-02.jpg", alt: "Traitement de billets de banque" },
+  { src: "/images/labo/service/slide-03.jpg", alt: "Équipements de nettoyage professionnel" },
+  { src: "/images/labo/service/slide-04.jpg", alt: "Billets de banque sécurisés" },
+  { src: "/images/labo/service/slide-05.jpg", alt: "Laboratoire chimie monétaire" },
+  { src: "/images/labo/service/slide-06.jpg", alt: "Produits chimiques certifiés" },
+  { src: "/images/labo/service/slide-07.jpg", alt: "Expertise monétaire internationale" },
+  { src: "/images/labo/service/slide-08.jpg", alt: "Machine de nettoyage de billets" },
+  { src: "/images/labo/service/slide-09.jpg", alt: "Analyses et diagnostics billets" },
+  { src: "/images/labo/service/slide-10.jpg", alt: "Consulting chimie monétaire" },
+];
+
+export const serviceTopics = [
+  {
+    slug: "nettoyage-billets",
+    id: "service-nettoyage",
+    menuLabel: "Nettoyage de billets",
+    title: "Nettoyage de billets de banque",
+    summary: "Entreprise professionnelle et expérimentée dans le nettoyage de billets de banque sécurisés de toutes les devises et de toutes couleurs.",
+    paragraphs: [
+      "Le <strong>Laboratoire International de Chimie Monétaire</strong> est une entreprise professionnelle et expérimentée dans le nettoyage de billets de banque sécurisés de toutes les devises et de toutes couleurs. Nous comprenons que la propreté des billets de banque est cruciale pour leur durabilité, leur lisibilité et leur valeur. Notre processus de nettoyage des billets de banque est hautement efficace et est adapté aux besoins de chaque client. Nous utilisons des équipements de pointe pour nettoyer les billets de banque et nous sommes en mesure d'offrir un service rapide et efficace pour répondre à tous les besoins de nos clients.",
+      "Nous utilisons des méthodes de nettoyage douces pour préserver l'intégrité des billets de banque et éviter de les endommager. Nous pouvons nettoyer une large gamme de devises, y compris les dollars américains, les euros, les livres sterling, les yens japonais et bien d'autres. Nous offrons des services de nettoyage de billets de banque pour les particuliers et les entreprises, et nous sommes fiers de fournir des résultats de haute qualité à nos clients.",
+      "Nous comprenons l'importance de la sécurité des billets de banque et nous garantissons que tous les billets qui nous sont confiés sont traités avec la plus grande confidentialité. Nous sommes également fiers de notre service clientèle exceptionnel et de notre engagement à fournir des solutions de nettoyage de billets de banque à un prix abordable. Contactez-nous dès maintenant pour en savoir plus sur nos services ou pour organiser un rendez-vous pour le nettoyage de vos billets de banque.",
+    ],
+    points: [
+      "Nettoyage de toutes les devises courantes : USD, EUR, GBP, devises africaines et sécurisées.",
+      "Méthodes de nettoyage douces pour préserver l'intégrité des billets sans les endommager.",
+      "Équipements de pointe haute pression et systèmes de décapage sécurisés.",
+      "Garantie de traitement avec la plus grande confidentialité et efficacité.",
+    ],
+    slides: allSlides,
+    coverImage: "/images/labo/service-1.jpg",
+  },
+  {
+    slug: "impression-billets",
+    id: "service-impression",
+    menuLabel: "Impression de billets",
+    title: "Impression de billets de banque",
+    summary: "Production et impression de billets de haute qualité avec encres de sécurité et papiers spéciaux conçus pour empêcher la contrefaçon.",
+    paragraphs: [
+      "Le <strong>Laboratoire International de Chimie Monétaire</strong> est fier de vous offrir un service professionnel et fiable pour tous vos besoins en matière d'impression de billets de banque de haute qualité. Nous utilisons des technologies d'impression de pointe pour garantir que chaque billet que nous produisons est de la plus haute qualité possible. Nos billets de banque sont imprimés avec des encres de haute qualité sur des papiers de sécurité spécialement conçus pour empêcher la contrefaçon.",
+      "Nous sommes spécialisés dans l'impression de billets de banque de toutes dénominations, et nous pouvons personnaliser nos produits pour répondre aux besoins spécifiques de nos clients. Nos procédés d'impression incluent la typographie, l'intaglio, l'offset et d'autres techniques pour garantir que chaque billet est authentique et sécurisé. Nous sommes fiers de fournir des billets de banque de haute qualité qui sont difficiles à contrefaire et qui répondent aux normes les plus strictes en matière de sécurité.",
+      "Nous nous engageons à respecter les protocoles de sécurité les plus stricts pour garantir la confidentialité de nos clients et la sécurité de leurs informations. Contactez-nous dès aujourd'hui pour en savoir plus sur nos services d'impression de billets de banque et pour obtenir un devis personnalisé.",
+    ],
+    points: [
+      "Impression haute précision sur papiers de sécurité spécialement conçus.",
+      "Encres certifiées optiquement variables (OVI), magnétiques et réactives aux UV.",
+      "Reproduction fidèle des filigranes, patchs holographiques et micro-lettrages.",
+      "Protocoles de sécurité et de confidentialité les plus stricts.",
+    ],
+    slides: allSlides,
+    coverImage: "/images/labo/service-2.jpg",
+  },
+  {
+    slug: "materiels-produits",
+    id: "service-materiels",
+    menuLabel: "Matériels et Produits",
+    title: "Matériels et Produits",
+    summary: "Location et vente de machines de nettoyage, SSD Solution de haute qualité, poudres d'activation et systèmes automatiques.",
+    paragraphs: [
+      "Le <strong>Laboratoire International de Chimie Monétaire</strong> est spécialisée dans la location et la vente de machines de nettoyage de billets de banque depuis plusieurs années. Nous avons acquis une solide réputation dans notre domaine grâce à notre expertise et notre engagement envers la qualité. Nous proposons une gamme complète de machines de nettoyage de billets de banque, allant des modèles d'entrée de gamme aux modèles haut de gamme, pour répondre à tous les besoins de nos clients.",
+      "Nos machines de nettoyage de billets de banque sont fabriquées à partir de matériaux de haute qualité et sont conçues pour être durables, fiables et faciles à utiliser. Nous proposons également des produits chimiques spécialisés pour le nettoyage de billets de banque, notamment la SSD Solution universelle et la poudre d'activation. Ces produits sont fabriqués selon des formulations exclusives pour maximiser l'efficacité du nettoyage tout en préservant l'intégrité des billets.",
+      "Nous offrons un service de location flexible pour nos machines de nettoyage, ce qui permet à nos clients de bénéficier de nos technologies de pointe sans avoir à investir dans l'achat d'équipements coûteux. Notre équipe d'experts est disponible pour fournir une assistance technique et des conseils professionnels pour aider nos clients à maximiser l'efficacité de nos produits.",
+    ],
+    points: [
+      "Machines de nettoyage automatiques et systèmes ultrasoniques haute performance.",
+      "Produits chimiques certifiés : SSD Solution universelle et poudre d'activation.",
+      "Kits de nettoyage manuels et équipements complets testés et calibrés.",
+      "Formations et conseils pour maximiser l'efficacité des équipements.",
+    ],
+    slides: allSlides,
+    coverImage: "/images/labo/service-3.jpg",
+  },
+  {
+    slug: "consulting-conseils",
+    id: "service-consulting",
+    menuLabel: "Consulting | Conseils",
+    title: "Consulting et Conseils",
+    summary: "Conseils pratiques, diagnostics précis et accompagnement sur-mesure pour la gestion et la réhabilitation de vos billets.",
+    paragraphs: [
+      "Nous sommes une équipe de professionnels hautement qualifiés qui se spécialisent dans le traitement chimique des billets de banque endommagés, sales, marqués ou sécurisés. Notre expertise dans le traitement chimique des billets de banque nous permet de vous fournir des solutions efficaces pour réhabiliter vos billets de banque. Nous travaillons avec des clients du monde entier et nous avons acquis une solide réputation grâce à notre expertise et notre engagement envers la qualité.",
+      "Nous offrons une gamme complète de services de consultation, allant de l'évaluation initiale de vos billets de banque à la fourniture de recommandations personnalisées pour leur réhabilitation. Nous pouvons également fournir des services de formation pour aider vos équipes à acquérir les compétences nécessaires pour traiter les billets de banque de manière efficace et sécurisée.",
+      "Notre équipe d'experts est disponible pour vous fournir des conseils et une assistance professionnelle tout au long du processus de réhabilitation de vos billets de banque. Nous nous engageons à vous fournir des solutions de haute qualité qui répondent à vos besoins spécifiques et qui respectent les normes les plus strictes en matière de sécurité et de confidentialité. Contactez-nous dès aujourd'hui pour en savoir plus sur nos services de consultation.",
+    ],
+    points: [
+      "Diagnostic technique personnalisé et évaluation de l'état des billets.",
+      "Conseils précis sur les agents chimiques et procédés de traitement à utiliser.",
+      "Bonnes pratiques de gestion des risques et de sécurité.",
+      "Services de formation adaptés au niveau de connaissances des collaborateurs.",
+    ],
+    slides: allSlides,
+    coverImage: "/images/labo/service-4.jpg",
+  },
+] as const;

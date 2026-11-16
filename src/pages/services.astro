@@ -1,0 +1,225 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import { serviceTopics } from "../data/services";
+import { contact } from "../data/site";
+
+const assurances = [
+  {
+    iconSvg: `<svg class="h-6 w-6 text-[#c99119]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>`,
+    title: "Réponse Rapide",
+    desc: "Traitement réactif et réponse personnalisée à vos besoins",
+  },
+  {
+    iconSvg: `<svg class="h-6 w-6 text-[#c99119]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><circle cx="12" cy="11" r="3"/></svg>`,
+    title: "Haute Précision",
+    desc: "Techniques douces, machines automatiques et ultrasons",
+  },
+  {
+    iconSvg: `<svg class="h-6 w-6 text-[#c99119]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>`,
+    title: "Discrétion Totale",
+    desc: "Confidentialité absolue garantie pour tous nos clients",
+  },
+  {
+    iconSvg: `<svg class="h-6 w-6 text-[#c99119]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>`,
+    title: "Toutes Devises",
+    desc: "Prise en charge dollars, euros, livres, devises sécurisées",
+  },
+];
+
+const serviceIcons = [
+  `<svg class="h-7 w-7 text-[#5876c9]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  `<svg class="h-7 w-7 text-[#5876c9]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>`,
+  `<svg class="h-7 w-7 text-[#5876c9]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>`,
+  `<svg class="h-7 w-7 text-[#5876c9]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
+];
+---
+
+<Layout
+  title="Nos Prestations"
+  description="Laboratoire International de Chimie Monétaire — Nettoyage de billets, impression de billets, matériels et produits, consulting et conseils."
+>
+  <PageHero
+    title="Nos Prestations"
+    kicker="Laboratoire International de Chimie Monétaire"
+    intro="Laboratoire International de Chimie Monétaire innove et réinvente son offre sans cesse pour répondre au mieux aux besoins de ses clients."
+  />
+
+  <section class="reveal mx-auto max-w-[1400px] px-5 py-20 lg:px-8 lg:py-24">
+    <div class="mx-auto max-w-3xl text-center">
+      <span class="rounded-full bg-[#c99119]/15 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-[#c99119]">
+        Offre Spécialisée
+      </span>
+      <h2 class="mt-4 text-3xl font-extrabold text-[#0b1727] sm:text-4xl lg:text-5xl">
+        Prestations de Qualité et Sur Mesure
+      </h2>
+      <p class="mt-4 text-base text-[#64748b] sm:text-lg">
+        Nous proposons à nos clients des solutions innovantes aux problématiques des détenteurs de billets sécurisés ou marqués de tous types et de toutes devises.
+      </p>
+    </div>
+
+    <!-- Grille de cartes style labochimiemonetaire.com -->
+    <div class="mt-14 grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+      {serviceTopics.map((topic, index) => (
+        <article
+          class="service-block-card shimmer-card group relative min-h-[440px] overflow-hidden rounded-2xl p-8 shadow-lg transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl flex flex-col justify-between border border-white/10"
+          data-card-slideshow
+          data-card-offset={index * 2}
+        >
+          {/* Couches d'images défilantes — 10 slides officielles */}
+          <div class="card-slides-container absolute inset-0" aria-hidden="true">
+            {topic.slides.map((slide, si) => (
+              <div
+                data-card-slide
+                class:list={[
+                  "absolute inset-0 bg-cover bg-center transition-all duration-1000",
+                  si === 0 ? "opacity-100 scale-100" : "opacity-0 scale-105"
+                ]}
+                style={`background-image: url('${slide.src}');`}
+              ></div>
+            ))}
+          </div>
+          {/* Overlay */}
+          <div class="absolute inset-0 bg-gradient-to-t from-[#071322] via-[#071322]/75 to-[#0b1d32]/70 transition-opacity duration-500 group-hover:via-[#071322]/85" aria-hidden="true"></div>
+
+          {/* Haut de carte : Icône + Badge compteur défilement automatique */}
+          <div class="relative z-10 flex items-center justify-between">
+            <div class="flex h-14 w-14 items-center justify-center rounded-xl bg-white shadow-md transition-transform duration-300 group-hover:scale-110">
+              <Fragment set:html={serviceIcons[index % serviceIcons.length]} />
+            </div>
+            <div class="flex items-center gap-1.5 rounded-full border border-white/20 bg-black/45 px-3 py-1 text-[11px] font-bold text-white/90 backdrop-blur-md">
+              <span class="h-1.5 w-1.5 rounded-full bg-[#f2d38c] pulse-dot"></span>
+              <span data-card-counter>01 / 10</span>
+            </div>
+          </div>
+
+          <div class="relative z-10 mt-auto pt-6">
+            <span class="text-xs font-bold tracking-wider uppercase text-[#f2d38c]">Service 0{index + 1}</span>
+            <h3 class="mt-2 text-2xl font-bold leading-snug text-white">
+              <a href={`/services/${topic.slug}`} class="hover:text-[#f2d38c] transition-colors">
+                {topic.menuLabel}
+              </a>
+            </h3>
+            <p class="mt-3 text-xs leading-relaxed text-white/80 line-clamp-3">
+              {topic.summary}
+            </p>
+
+            <div class="mt-6 border-t border-white/20 pt-4 flex items-center justify-between">
+              <a
+                href={`/services/${topic.slug}`}
+                class="inline-flex items-center gap-1.5 text-sm font-bold text-white transition-all group-hover:text-[#f2d38c]"
+              >
+                <span>En savoir plus</span>
+                <span class="transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true">›</span>
+              </a>
+              <a
+                href={contact.whatsappHref}
+                target="_blank"
+                rel="noreferrer"
+                class="rounded-md bg-[#25D366]/90 px-2.5 py-1 text-[11px] font-bold text-white hover:bg-[#25D366]"
+              >
+                Devis
+              </a>
+            </div>
+          </div>
+
+          <span class="service-count-number pointer-events-none absolute bottom-0 right-2 select-none text-[120px] font-extrabold leading-none transition-all duration-500 group-hover:scale-105" aria-hidden="true">
+            0{index + 1}
+          </span>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- SECTION ENGAGEMENTS SANS EMOJI -->
+  <section class="reveal bg-slate-50 py-16 lg:py-20">
+    <div class="mx-auto max-w-[1400px] px-5 lg:px-8">
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {assurances.map((item) => (
+          <div class="flex items-center gap-4 rounded-xl border border-[#e2e8f0] bg-white p-5 shadow-sm">
+            <div class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-slate-50 border border-slate-100 shadow-sm">
+              <Fragment set:html={item.iconSvg} />
+            </div>
+            <div>
+              <h4 class="text-sm font-bold text-[#0b1727]">{item.title}</h4>
+              <p class="text-xs text-[#64748b] mt-0.5">{item.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- BANNIÈRE DEVIS -->
+  <section class="reveal mx-auto max-w-[1200px] px-5 py-20 lg:px-8">
+    <div class="rounded-3xl border border-[#e2e8f0] bg-white p-8 sm:p-12 shadow-xl flex flex-col md:flex-row items-center justify-between gap-8">
+      <div class="max-w-2xl">
+        <h3 class="text-2xl font-bold text-[#0b1727]">Demandez votre devis dès aujourd'hui !</h3>
+        <p class="mt-2 text-sm leading-relaxed text-[#64748b]">
+          Que vous soyez professionnel ou particulier et quel que soit votre secteur d'activité, nous vous fournissons les meilleurs produits et services au meilleur rapport qualité/prix.
+        </p>
+      </div>
+      <div class="flex flex-wrap gap-4 shrink-0">
+        <a
+          href={contact.whatsappHref}
+          target="_blank"
+          rel="noreferrer"
+          class="action-button inline-flex items-center gap-2 rounded-xl bg-[#25D366] px-6 py-3.5 text-sm font-bold text-white hover:bg-[#20ba59]"
+        >
+          Devis sur WhatsApp
+        </a>
+        <a
+          href="/contact"
+          class="action-button inline-flex items-center gap-2 rounded-xl bg-[#0b1d32] px-6 py-3.5 text-sm font-semibold text-white hover:bg-[#173b5b]"
+        >
+          Formulaire en ligne
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .service-count-number {
+      color: transparent;
+      -webkit-text-stroke-width: 1px;
+      -webkit-text-stroke-color: rgba(255, 255, 255, 0.22);
+    }
+
+    .service-block-card:hover .service-count-number {
+      -webkit-text-stroke-color: rgba(201, 145, 25, 0.45);
+    }
+  </style>
+
+  <script>
+    // Défilement automatique dans les cartes de service
+    document.querySelectorAll('[data-card-slideshow]').forEach(function(card) {
+      var slides = Array.from(card.querySelectorAll('[data-card-slide]'));
+      var counterEl = card.querySelector('[data-card-counter]');
+      if (slides.length < 2) return;
+      var offset = parseInt(card.getAttribute('data-card-offset') || '0', 10);
+      var cur = offset % slides.length;
+      function showSlide(idx) {
+        slides.forEach(function(s, i) {
+          if (i === idx) {
+            s.classList.add('opacity-100', 'scale-100');
+            s.classList.remove('opacity-0', 'scale-105');
+          } else {
+            s.classList.remove('opacity-100', 'scale-100');
+            s.classList.add('opacity-0', 'scale-105');
+          }
+        });
+        cur = idx;
+        if (counterEl) {
+          counterEl.textContent = (cur + 1 < 10 ? '0' : '') + (cur + 1) + ' / ' + (slides.length < 10 ? '0' : '') + slides.length;
+        }
+      }
+      showSlide(cur);
+      var t = setInterval(function() { showSlide((cur + 1) % slides.length); }, 3200);
+      card.addEventListener('mouseenter', function() { clearInterval(t); });
+      card.addEventListener('mouseleave', function() {
+        t = setInterval(function() { showSlide((cur + 1) % slides.length); }, 3200);
+      });
+    });
+  </script>
+
+</Layout>

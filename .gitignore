@@ -1,0 +1,11 @@
+node_modules
+dist
+.astro
+.DS_Store
+.env
+.env.*
+*.log
+buildlog.txt
+.vscode
+.idea
+.cursor

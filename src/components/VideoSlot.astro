@@ -1,0 +1,40 @@
+---
+interface Props {
+  id: string;
+  title: string;
+  src?: string;
+  poster?: string;
+}
+
+const { id, title, src = "", poster = "" } = Astro.props;
+---
+
+<article class="overflow-hidden rounded-2xl border border-line bg-white shadow-sm">
+  <div class="aspect-video bg-ink">
+    {
+      src ? (
+        <video
+          class="h-full w-full object-cover"
+          controls
+          preload="metadata"
+          poster={poster || undefined}
+        >
+          <source src={src} type="video/mp4" />
+          Votre navigateur ne lit pas cette vidéo.
+        </video>
+      ) : (
+        <div class="flex h-full flex-col items-center justify-center px-6 text-center text-white/70">
+          <p class="text-xs font-semibold tracking-[0.2em] uppercase">Vidéo</p>
+          <p class="mt-2 text-sm">
+            Ajoutez le fichier dans <code class="text-mint">public/videos/</code>
+            puis renseignez <code class="text-mint">src</code> dans{" "}
+            <code class="text-mint">src/data/site.ts</code> ({id})
+          </p>
+        </div>
+      )
+    }
+  </div>
+  <div class="px-5 py-4">
+    <h3 class="text-base font-semibold text-ink">{title}</h3>
+  </div>
+</article>

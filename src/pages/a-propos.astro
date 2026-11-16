@@ -1,0 +1,162 @@
+---
+import Layout from "../layouts/Layout.astro";
+import PageHero from "../components/PageHero.astro";
+import { contact } from "../data/site";
+
+const domains = [
+  {
+    iconSvg: `<svg class="h-8 w-8 text-[#5876c9]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>`,
+    title: "Nettoyage et décapage de billets sécurisés",
+    desc: "Solutions chimiques certifiées et procédés de décapage sécurisés pour réhabiliter les billets marqués, souillés ou sécurisés de toutes devises.",
+  },
+  {
+    iconSvg: `<svg class="h-8 w-8 text-[#5876c9]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>`,
+    title: "Impression de billets de haute qualité",
+    desc: "Production fidèle sur papiers fiduciaires de sécurité avec intégration de filigranes, encres de haute précision et éléments optiques.",
+  },
+  {
+    iconSvg: `<svg class="h-8 w-8 text-[#5876c9]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>`,
+    title: "Location et vente de produits & matériels",
+    desc: "Mise à disposition de machines de nettoyage haute pression, ultrasons, SSD Solution et poudres réactives d'activation.",
+  },
+  {
+    iconSvg: `<svg class="h-8 w-8 text-[#5876c9]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
+    title: "Consulting et Conseils en chimie monétaire",
+    desc: "Accompagnement personnalisé, diagnostic en laboratoire, formations techniques et protocoles de prévention.",
+  },
+];
+
+const teamStrengths = [
+  { label: "Équipe Pluridisciplinaire", desc: "Professeurs associés, conseillers et techniciens certifiés en chimie monétaire." },
+  { label: "Présence Internationale", desc: "Interventions reconnues en Europe, en Afrique et dans le monde entier." },
+  { label: "Accompagnement Sur Mesure", desc: "Du diagnostic préalable au suivi personnalisé des traitements chimiques." },
+  { label: "Confidentialité & Sécurité", desc: "Protocoles stricts pour assurer la discrétion et la protection de nos usagers." },
+];
+---
+
+<Layout
+  title="Présentation"
+  description="Présentation du Laboratoire International de Chimie Monétaire — Réputation construite en Europe et en Afrique dans le décapage de billets sécurisés."
+>
+  <PageHero
+    title="Présentation du Laboratoire"
+    kicker="Laboratoire International de Chimie Monétaire"
+    intro="Une réputation solide construite en Europe et en Afrique dans le décapage et la réhabilitation de billets sécurisés."
+  />
+
+  <!-- SECTION PRÉSENTATION PRINCIPALE -->
+  <section class="reveal mx-auto max-w-[1400px] px-5 py-20 lg:px-8 lg:py-24">
+    <div class="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+      <div class="relative">
+        <div class="overflow-hidden rounded-2xl shadow-2xl border border-slate-200">
+          <img
+            src="/images/labo/about-2.jpg"
+            alt="Équipe du Laboratoire International de Chimie Monétaire"
+            class="h-[440px] w-full object-cover transition-transform duration-700 hover:scale-105 sm:h-[500px]"
+            loading="lazy"
+          />
+        </div>
+
+        <div class="absolute -bottom-6 -right-4 max-w-[290px] rounded-2xl border border-white/40 bg-white/95 p-5 shadow-2xl backdrop-blur-md sm:bottom-6 sm:right-6">
+          <p class="text-xs font-bold uppercase tracking-wider text-[#c99119]">Acteur International</p>
+          <p class="mt-1 text-sm font-bold text-[#0b1727]">Laboratoire basé en France, opérant dans le monde entier</p>
+        </div>
+      </div>
+
+      <div>
+        <div class="inline-flex items-center gap-2 rounded-full bg-[#5876c9]/10 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-[#5876c9]">
+          À Propos de Nous
+        </div>
+        <h2 class="mt-4 text-3xl font-extrabold text-[#0b1727] sm:text-4xl lg:text-5xl">
+          Une Référence en Chimie Monétaire
+        </h2>
+        <p class="mt-5 text-base leading-relaxed text-[#475569] sm:text-lg">
+          Le <strong>Laboratoire International de Chimie Monétaire</strong> a construit sa réputation en Europe et en Afrique, dans le décapage de billets sécurisés. Nous avons mis au point des solutions efficaces et sommes dotés d’une équipe compétente composée de professeurs associés, conseillers et techniciens certifiés en chimie monétaire.
+        </p>
+        <p class="mt-4 text-base leading-relaxed text-[#475569]">
+          Le Laboratoire vous propose une offre de services pluridisciplinaires de qualité (nettoyage de billets noirs). Du diagnostic au suivi des traitements, le laboratoire s’engage à vous accompagner et vous conseiller selon vos demandes et spécificités. Nous opérons dans le monde entier et nous sommes basés en France.
+        </p>
+
+        <div class="mt-8 grid gap-4 sm:grid-cols-2">
+          {teamStrengths.map((item) => (
+            <div class="rounded-xl border border-[#e2e8f0] bg-slate-50/70 p-4">
+              <h4 class="text-xs font-bold uppercase tracking-wider text-[#0b1727]">{item.label}</h4>
+              <p class="mt-1 text-xs text-[#64748b] leading-relaxed">{item.desc}</p>
+            </div>
+          ))}
+        </div>
+
+        <div class="mt-8 flex flex-wrap gap-4">
+          <a
+            href="/services"
+            class="action-button inline-flex items-center gap-2 rounded-xl bg-[#0b1d32] px-6 py-3.5 text-sm font-bold text-white hover:bg-[#173b5b]"
+          >
+            Découvrir nos prestations
+            <span aria-hidden="true">→</span>
+          </a>
+          <a
+            href="/contact"
+            class="action-button inline-flex items-center gap-2 rounded-xl border border-slate-300 px-6 py-3.5 text-sm font-semibold text-[#0b1727] hover:bg-slate-50"
+          >
+            Nous contacter
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION NOS 4 DOMAINES D'EXPERTISE (Sans emoji) -->
+  <section class="reveal bg-slate-50 py-20 lg:py-28">
+    <div class="mx-auto max-w-[1400px] px-5 lg:px-8">
+      <div class="mx-auto max-w-3xl text-center">
+        <span class="rounded-full bg-blue-100 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-blue-700">
+          Notre Expertise
+        </span>
+        <h2 class="mt-4 text-3xl font-extrabold text-[#0b1727] sm:text-4xl">
+          Nos 4 Domaines d'Intervention Clés
+        </h2>
+        <p class="mt-4 text-base text-[#64748b]">
+          Un savoir-faire pluridisciplinaire pour répondre aux exigences les plus pointues.
+        </p>
+      </div>
+
+      <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {domains.map((dom) => (
+          <div class="card-hover-effect rounded-2xl border border-[#e2e8f0] bg-white p-7 shadow-sm">
+            <div class="flex h-14 w-14 items-center justify-center rounded-xl bg-slate-50 border border-slate-100 shadow-sm">
+              <Fragment set:html={dom.iconSvg} />
+            </div>
+            <h3 class="mt-5 text-lg font-bold text-[#0b1727]">{dom.title}</h3>
+            <p class="mt-3 text-sm leading-relaxed text-[#64748b]">{dom.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- BANNIÈRE CONTACT -->
+  <section class="reveal mx-auto max-w-[1400px] px-5 py-16 lg:px-8">
+    <div class="rounded-3xl bg-gradient-to-r from-[#071322] to-[#173b5b] p-8 sm:p-14 text-white text-center shadow-xl">
+      <h2 class="text-3xl font-extrabold sm:text-4xl">Besoin d'un accompagnement personnalisé ?</h2>
+      <p class="mx-auto mt-4 max-w-xl text-base text-white/80">
+        Du diagnostic initial au traitement complet, nos techniciens certifiés sont à votre service.
+      </p>
+      <div class="mt-8 flex flex-wrap justify-center gap-4">
+        <a
+          href={contact.whatsappHref}
+          target="_blank"
+          rel="noreferrer"
+          class="action-button inline-flex items-center gap-2 rounded-xl bg-[#25D366] px-7 py-3.5 text-sm font-bold text-white hover:bg-[#20ba59]"
+        >
+          Discuter sur WhatsApp
+        </a>
+        <a
+          href="/contact"
+          class="action-button inline-flex items-center gap-2 rounded-xl border border-white/40 px-7 py-3.5 text-sm font-semibold text-white hover:bg-white/10"
+        >
+          Demander un devis
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

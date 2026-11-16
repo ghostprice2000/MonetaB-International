@@ -1,0 +1,285 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --color-ink: #0b1727;
+  --color-ink-soft: #475569;
+  --color-primary: #0b1d32;
+  --color-primary-light: #173b5b;
+  --color-accent: #c99119;
+  --color-accent-light: #f59e0b;
+  --color-mint: #f2d38c;
+  --color-paper: #f8fafc;
+  --color-line: #e2e8f0;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 100px;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--color-ink);
+  background: #ffffff;
+  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Barre de progression de défilement */
+#scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #c99119, #f59e0b, #60a5fa);
+  z-index: 9999;
+  width: 0%;
+  transition: width 0.1s ease-out;
+  pointer-events: none;
+}
+
+/* Animations de reveal au scroll */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* Effets Glassmorphism & Cartes modernes */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+}
+
+.glass-panel-dark {
+  background: rgba(11, 29, 50, 0.82);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.card-hover-effect {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+}
+
+.card-hover-effect:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 35px -10px rgba(11, 29, 50, 0.12), 0 10px 10px -5px rgba(11, 29, 50, 0.04);
+}
+
+/* Dégradé or pour textes prestigieux */
+.gold-gradient-text {
+  background: linear-gradient(135deg, #dfa938 0%, #c99119 50%, #926405 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gold-badge {
+  background: linear-gradient(135deg, rgba(201, 145, 25, 0.12) 0%, rgba(245, 158, 11, 0.08) 100%);
+  border: 1px solid rgba(201, 145, 25, 0.3);
+  color: #a87208;
+}
+
+/* Pulsation douce pour badge de statut et WhatsApp */
+@keyframes pulse-glow {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5);
+  }
+  50% {
+    transform: scale(1.04);
+    box-shadow: 0 0 0 10px rgba(37, 211, 102, 0);
+  }
+}
+
+.pulse-whatsapp {
+  animation: pulse-glow 2.5s infinite cubic-bezier(0.4, 0, 0.6, 1);
+}
+
+@keyframes pulse-subtle-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+.pulse-dot {
+  animation: pulse-subtle-dot 2s infinite ease-in-out;
+}
+
+/* Boutons d'action */
+:where(button:not(.mobile-menu-backdrop), .action-button) {
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+:where(button:not(.mobile-menu-backdrop):not(:disabled), .action-button):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -5px rgba(11, 29, 50, 0.22);
+}
+
+:where(button:not(.mobile-menu-backdrop):not(:disabled), .action-button):active {
+  transform: translateY(0) scale(0.98);
+}
+
+:where(button:not(.mobile-menu-backdrop), .action-button):focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+/* Shimmer subtil au hover sur images */
+.img-zoom-hover {
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.group:hover .img-zoom-hover {
+  transform: scale(1.05);
+}
+
+/* ========================================================
+   ANIMATIONS MODERNES ET DÉFILEMENT CONTINU
+   ======================================================== */
+
+/* Défilement horizontal infini fluide pour la galerie de photos */
+@keyframes marquee-infinite {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.marquee-container {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.marquee-container::before,
+.marquee-container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 80px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.marquee-container::before {
+  left: 0;
+  background: linear-gradient(to right, rgba(7, 19, 34, 1), transparent);
+}
+
+.marquee-container::after {
+  right: 0;
+  background: linear-gradient(to left, rgba(7, 19, 34, 1), transparent);
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-infinite 30s linear infinite;
+  will-change: transform;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* Effet Ken Burns fluide sur fond de diapo */
+@keyframes kenburns-pan {
+  0% { transform: scale(1) translate(0, 0); }
+  50% { transform: scale(1.08) translate(-1%, -1%); }
+  100% { transform: scale(1) translate(0, 0); }
+}
+
+.kenburns-zoom {
+  animation: kenburns-pan 20s ease-in-out infinite alternate;
+}
+
+/* Barre de progression automatique du slider hero */
+@keyframes slider-timer {
+  from { width: 0%; }
+  to { width: 100%; }
+}
+
+.slider-progress-bar {
+  animation: slider-timer 5s linear infinite;
+}
+
+/* Flottaison subtile pour badges et pastilles */
+@keyframes float-badge {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+
+.animate-float {
+  animation: float-badge 3.5s ease-in-out infinite;
+}
+
+/* Effet reflet brillant (shimmer sweep) sur cartes */
+@keyframes sweep-shine {
+  0% { transform: translateX(-150%) skewX(-20deg); }
+  100% { transform: translateX(250%) skewX(-20deg); }
+}
+
+.shimmer-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.16), transparent);
+  transform: translateX(-150%) skewX(-20deg);
+  pointer-events: none;
+}
+
+.shimmer-card:hover::after {
+  animation: sweep-shine 1s ease-in-out;
+}
+
+/* Animation douce d'apparition de texte */
+@keyframes fade-slide-up {
+  0% { opacity: 0; transform: translateY(14px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in-up {
+  animation: fade-slide-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+::selection {
+  background: rgba(201, 145, 25, 0.25);
+  color: #0b1d32;
+}

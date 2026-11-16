@@ -1,0 +1,27 @@
+---
+interface Props {
+  label: string;
+  hint?: string;
+  minHeight?: string;
+  class?: string;
+}
+
+const {
+  label,
+  hint = "Zone réservée — contenu à insérer",
+  minHeight = "12rem",
+  class: className = "",
+} = Astro.props;
+---
+
+<div
+  class:list={[
+    "flex flex-col items-center justify-center rounded-2xl border border-dashed border-line bg-paper/70 px-6 py-10 text-center",
+    className,
+  ]}
+  style={`min-height: ${minHeight}`}
+>
+  <p class="text-sm font-semibold tracking-wide text-ink-soft uppercase">{label}</p>
+  <p class="mt-2 max-w-md text-sm text-ink-soft/80">{hint}</p>
+  <slot />
+</div>
