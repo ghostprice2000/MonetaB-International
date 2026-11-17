@@ -1,6 +1,6 @@
 ---
-// Composant SEO réutilisable — MonetaB International
-// Intègre : meta tags, Open Graph, Twitter Card, Schema.org
+// Composant SEO complet — MonetaB International
+// Intègre : meta, Open Graph, Twitter Card, Schema.org, hreflang multipays
 
 interface Props {
   title: string;
@@ -16,7 +16,7 @@ interface Props {
 const {
   title,
   description,
-  keywords = "nettoyage billets, SSD solution, laboratoire chimie monétaire, nettoyage billets de banque, déblocage billets, traitement billets sécurisés, encres de sécurité, impression billets, MonetaB International",
+  keywords = "nettoyage billets, nettoyage billets de banque, SSD solution nettoyage billets, produit nettoyage billet euro, laboratoire chimie monétaire, nettoyer billets noirs, déblocage billets, nettoyage billets France, nettoyage billets Belgique, nettoyage billets Suisse, nettoyage billets Maroc, SSD chemical solution Europe, currency cleaning laboratory, black money cleaning solution, MonetaB International, Marseille",
   image = "/images/labo/banner-1.jpg",
   type = "website",
   canonical,
@@ -24,34 +24,48 @@ const {
   schema,
 } = Astro.props;
 
-const siteUrl = Astro.site ?? new URL("https://monetabinternational.com");
+const siteUrl = Astro.site ?? new URL("https://moneta-b-international.vercel.app");
 const canonicalUrl = canonical
   ? new URL(canonical, siteUrl)
   : new URL(Astro.url.pathname, siteUrl);
 const imageUrl = new URL(image, siteUrl);
+const path = Astro.url.pathname;
 
-// Schema.org par défaut — Organisation
+// Schema.org par défaut — LocalBusiness
 const defaultSchema = {
   "@context": "https://schema.org",
-  "@type": "Organization",
+  "@type": "LocalBusiness",
   "name": "Laboratoire International de Chimie Monétaire",
   "alternateName": "MonetaB International",
   "url": siteUrl.href,
   "logo": new URL("/logo-monetalab.png", siteUrl).href,
-  "description": "Laboratoire international spécialisé dans le nettoyage et traitement chimique de billets de banque sécurisés de toutes devises.",
+  "image": new URL("/images/labo/banner-1.jpg", siteUrl).href,
+  "description": "Laboratoire international spécialisé dans le nettoyage et traitement chimique de billets de banque sécurisés de toutes devises. Service mondial.",
+  "priceRange": "$$",
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "9, Quai du Lazaret",
     "postalCode": "13002",
     "addressLocality": "Marseille",
+    "addressRegion": "Provence-Alpes-Côte d'Azur",
     "addressCountry": "FR"
   },
   "contactPoint": {
     "@type": "ContactPoint",
     "telephone": "+33-7-48-23-32-62",
     "contactType": "customer service",
-    "availableLanguage": ["French", "English"]
+    "availableLanguage": ["French", "English", "Arabic"]
   },
+  "areaServed": [
+    { "@type": "Country", "name": "France" },
+    { "@type": "Country", "name": "Belgium" },
+    { "@type": "Country", "name": "Switzerland" },
+    { "@type": "Country", "name": "Morocco" },
+    { "@type": "Country", "name": "Ivory Coast" },
+    { "@type": "Country", "name": "Senegal" },
+    { "@type": "Country", "name": "Cameroon" },
+    { "@type": "Country", "name": "Democratic Republic of the Congo" }
+  ],
   "sameAs": [
     "https://github.com/ghostprice2000/MonetaB-International"
   ]
@@ -68,17 +82,37 @@ const schemaData = schema ?? defaultSchema;
 <meta name="author" content="Laboratoire International de Chimie Monétaire" />
 <meta name="geo.region" content="FR-13" />
 <meta name="geo.placename" content="Marseille" />
+<meta name="geo.position" content="43.299;5.374" />
+<meta name="ICBM" content="43.299, 5.374" />
 <link rel="canonical" href={canonicalUrl.href} />
+
+<!-- Hreflang — Ciblage multipays (France, Belgique, Suisse, Monde francophone, Anglophone) -->
+<link rel="alternate" hreflang="fr" href={`https://moneta-b-international.vercel.app${path}`} />
+<link rel="alternate" hreflang="fr-FR" href={`https://moneta-b-international.vercel.app${path}`} />
+<link rel="alternate" hreflang="fr-BE" href={`https://moneta-b-international.vercel.app${path}`} />
+<link rel="alternate" hreflang="fr-CH" href={`https://moneta-b-international.vercel.app${path}`} />
+<link rel="alternate" hreflang="fr-MA" href={`https://moneta-b-international.vercel.app${path}`} />
+<link rel="alternate" hreflang="fr-CI" href={`https://moneta-b-international.vercel.app${path}`} />
+<link rel="alternate" hreflang="fr-SN" href={`https://moneta-b-international.vercel.app${path}`} />
+<link rel="alternate" hreflang="fr-CM" href={`https://moneta-b-international.vercel.app${path}`} />
+<link rel="alternate" hreflang="fr-CD" href={`https://moneta-b-international.vercel.app${path}`} />
+<link rel="alternate" hreflang="en" href={`https://moneta-b-international.vercel.app${path}`} />
+<link rel="alternate" hreflang="x-default" href={`https://moneta-b-international.vercel.app${path}`} />
 
 <!-- Open Graph (Facebook, WhatsApp, LinkedIn) -->
 <meta property="og:type" content={type} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={imageUrl.href} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
 <meta property="og:url" content={canonicalUrl.href} />
 <meta property="og:site_name" content="MonetaB International" />
 <meta property="og:locale" content="fr_FR" />
 <meta property="og:locale:alternate" content="en_US" />
+<meta property="og:locale:alternate" content="fr_BE" />
+<meta property="og:locale:alternate" content="fr_CH" />
+<meta property="og:locale:alternate" content="fr_MA" />
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image" />

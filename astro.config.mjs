@@ -3,7 +3,7 @@ import tailwindcss from "@tailwindcss/vite";
 import sitemap from "@astrojs/sitemap";
 
 export default defineConfig({
-  site: "https://monetabinternational.com",
+  site: "https://moneta-b-international.vercel.app",
   integrations: [
     sitemap({
       filter: (page) =>
@@ -12,17 +12,17 @@ export default defineConfig({
       priority: 0.7,
       lastmod: new Date(),
       customPages: [
-        "https://monetabinternational.com/",
-        "https://monetabinternational.com/services",
-        "https://monetabinternational.com/services/nettoyage-billets",
-        "https://monetabinternational.com/services/impression-billets",
-        "https://monetabinternational.com/services/materiels-produits",
-        "https://monetabinternational.com/services/consulting-conseils",
-        "https://monetabinternational.com/a-propos",
-        "https://monetabinternational.com/expertise",
-        "https://monetabinternational.com/ressources",
-        "https://monetabinternational.com/multimedia",
-        "https://monetabinternational.com/contact",
+        "https://moneta-b-international.vercel.app/",
+        "https://moneta-b-international.vercel.app/services",
+        "https://moneta-b-international.vercel.app/services/nettoyage-billets",
+        "https://moneta-b-international.vercel.app/services/impression-billets",
+        "https://moneta-b-international.vercel.app/services/materiels-produits",
+        "https://moneta-b-international.vercel.app/services/consulting-conseils",
+        "https://moneta-b-international.vercel.app/a-propos",
+        "https://moneta-b-international.vercel.app/expertise",
+        "https://moneta-b-international.vercel.app/ressources",
+        "https://moneta-b-international.vercel.app/multimedia",
+        "https://moneta-b-international.vercel.app/contact",
       ],
     }),
   ],
